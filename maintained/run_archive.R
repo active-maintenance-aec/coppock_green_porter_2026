@@ -6,6 +6,11 @@
 #   write_rds() calls that build those files, so the stripped copy restores those lines; a stripped run
 #   without them could not reach the figures. Data files stay, because the archive ships only cleaned
 #   data (maintained/raw_to_clean.R tests those). Set CGP_REUSE_ARCHIVE_RUN=TRUE to reuse a finished run.
+#   Two conditions were measured, not assumed. table_C5 writes to ../replication_archive/, so each scratch
+#   copy sits in a directory of that name. figure_5, figure_7, and figure_C8 call format_num or
+#   make_se_entry, exported by rdss, without attaching rdss, so they fail as shipped; the stripped pass
+#   attaches it in those three scripts, and the as_shipped pass leaves them failing. figure_C8 also calls
+#   vayr's position_dodgev without attaching vayr, so the stripped pass attaches that as well.
 
 library(tidyverse)
 library(here)
@@ -30,20 +35,25 @@ stopifnot(all(file.exists(file.path(root, scripts))))
 precomputed <- c("ates_study_1.rds", "ates_study_2.rds", "hypotheticals_study_1.rds",
                  "hypotheticals_study_2.rds", "macropartisanship_estimates.rds")
 
+unattached_rdss <- c("figure_5_party_switching.R", "figure_7_meta_analysis_outcomes.R",
+                     "figure_C8_meta_analysis_hypotheticals.R")
+attach_rdss <- \(path) write_lines(c("library(rdss)", "library(vayr)", read_lines(path)), path)
+
 restore_writes <- function(path) {
   lines <- read_lines(path)
   str_replace(lines, "^#\\s*(write_rds\\()", "\\1") |> write_lines(path)
 }
 
 run_pass <- function(pass) {
-  scratch <- file.path(run_dir, pass)
-  unlink(scratch, recursive = TRUE)
+  unlink(file.path(run_dir, pass), recursive = TRUE)
+  scratch <- file.path(run_dir, pass, "replication_archive")
   dir.create(scratch, recursive = TRUE)
   file.copy(list.files(root, full.names = TRUE), scratch)
   dir.create(file.path(scratch, "logs"))
   if (pass == "stripped") {
     unlink(file.path(scratch, precomputed))
     walk(file.path(scratch, scripts), restore_writes)
+    walk(file.path(scratch, unattached_rdss), attach_rdss)
   }
   map_dfr(scripts, \(script) {
     log_lines <- withr::with_dir(scratch, suppressWarnings(

@@ -3,27 +3,27 @@ stripped,analyze_outcomes_study_1.R,0,NA
 stripped,analyze_outcomes_study_2.R,0,NA
 stripped,figure_3_hypotheticals_study_1.R,0,NA
 stripped,figure_4_hypotheticals_study_2.R,0,NA
-stripped,table_C5_macropartisanship_comparison.R,1,"Error in saveRDS(x, con, version = version, refhook = refhook, ascii = text) : "
+stripped,table_C5_macropartisanship_comparison.R,0,NA
 stripped,figure_1_figure_B5_table_B3_field_experiment_nofe.R,0,NA
 stripped,figure_2_consort_calculations.R,0,NA
-stripped,figure_5_party_switching.R,1,Error in `summarise()`:
+stripped,figure_5_party_switching.R,0,NA
 stripped,figure_6_hypotheticals_order.R,0,NA
-stripped,figure_7_meta_analysis_outcomes.R,1,Error in `mutate()`:
+stripped,figure_7_meta_analysis_outcomes.R,0,NA
 stripped,figure_A4_trimming_analysis.R,0,"Error in summarise(., trimming_bounds(Y = { : "
 stripped,figure_B6_field_experiment_yesfe.R,0,NA
 stripped,figure_C7_theoffice.R,0,NA
-stripped,figure_C8_meta_analysis_hypotheticals.R,1,Error in `mutate()`:
+stripped,figure_C8_meta_analysis_hypotheticals.R,1,Error in position_dodgev(height = 0.25) : 
 stripped,figure_C9_probabilities_study_2.R,0,NA
 stripped,figure_C10-C11_party_switching.R,0,NA
 stripped,figures_A2_and_A3_response_rates.R,0,NA
 stripped,table_A1_survey_experiments_1_and_2_ns.R,0,NA
 stripped,table_A2_survey_experiments_345_ns.R,0,NA
-stripped,in_text_claims.R,1,"Error in readRDS(con, refhook = refhook) : cannot open the connection"
+stripped,in_text_claims.R,0,NA
 as_shipped,analyze_outcomes_study_1.R,0,NA
 as_shipped,analyze_outcomes_study_2.R,0,NA
 as_shipped,figure_3_hypotheticals_study_1.R,0,NA
 as_shipped,figure_4_hypotheticals_study_2.R,0,NA
-as_shipped,table_C5_macropartisanship_comparison.R,1,"Error in saveRDS(x, con, version = version, refhook = refhook, ascii = text) : "
+as_shipped,table_C5_macropartisanship_comparison.R,0,NA
 as_shipped,figure_1_figure_B5_table_B3_field_experiment_nofe.R,0,NA
 as_shipped,figure_2_consort_calculations.R,0,NA
 as_shipped,figure_5_party_switching.R,1,Error in `summarise()`:

@@ -1,0 +1,5 @@
+file,rebuilt,rows_archive,shared_columns,columns_differing,script_exits
+clean_hypotheticals_study_1.rds,TRUE,995,82,0,"0,0"
+clean_hypotheticals_study_2.rds,TRUE,3050,99,0,"0,0"
+clean_hypotheticals_study_1_long.rds,TRUE,4975,80,0,"0,0"
+clean_hypotheticals_study_2_long.rds,TRUE,18300,96,0,"0,0"
