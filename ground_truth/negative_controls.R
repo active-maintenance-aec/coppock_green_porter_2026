@@ -36,9 +36,9 @@ controls <- list(
   "a page value mistyped" = \(s) edit_csv(s, claims, \(d) mutate(d, value_paper = if_else(claim_id == "n_study_2", "3051", value_paper))),
   "a claim with no computed value" = \(s) edit_csv(s, claims, \(d) add_row(d, claim_id = "bogus", value_paper = "1", digits = "0")),
   "a duplicated claim id" = \(s) edit_csv(s, claims, \(d) bind_rows(d, slice(d, 1))),
-  "a spine id with no row" = \(s) edit_csv(s, "errata_entries.csv", \(d) mutate(d, claim_ids = if_else(entry == "1", str_c(claim_ids, ";bogus"), claim_ids))),
-  "a mismatch the spine does not report" = \(s) edit_csv(s, "errata_entries.csv", \(d) filter(d, entry != "1")),
-  "a spine entry on a claim that holds" = \(s) edit_csv(s, "errata_entries.csv", \(d) mutate(d, claim_ids = if_else(entry == "1", str_c(claim_ids, ";cor_1"), claim_ids)))
+  "a spine id with no row" = \(s) edit_csv(s, "errata_entries.csv", \(d) mutate(d, claim_ids = if_else(entry == "3", str_c(claim_ids, ";bogus"), claim_ids))),
+  "a mismatch the spine does not report" = \(s) edit_csv(s, "errata_entries.csv", \(d) filter(d, entry != "3")),
+  "a spine entry on a claim that holds" = \(s) edit_csv(s, "errata_entries.csv", \(d) mutate(d, claim_ids = if_else(entry == "3", str_c(claim_ids, ";cor_1"), claim_ids)))
 )
 results <- tibble(control = names(controls), outcome = map_chr(controls, run_control), expected = if_else(control == "no fault", "passed", "halted"))
 write_csv(results, here::here("ground_truth", "negative_controls.csv"))

@@ -1,0 +1,57 @@
+paper_id,claim_id,location,claim,value_paper,value_rewrite,match_rewrite,defect_locus
+coppock_green_porter_2026,switch_treated,abstract,percent imagining a switch under pro-out-party scenarios,12,11.999670860863136,1,NA
+coppock_green_porter_2026,switch_status_quo,abstract,percent imagining a switch under status quo,5,4.964138684747765,1,NA
+coppock_green_porter_2026,switch_gap,"p. 26, p. 28, p. 40",difference in percentage points,7.0,7.035532176115369,1,NA
+coppock_green_porter_2026,switch_gap_se,"p. 26, p. 40",standard error of the difference,1.5,1.4680827241536851,1,NA
+coppock_green_porter_2026,preview_rep,p. 28,average pro-Republican effect,0.56,0.5593374507608847,1,NA
+coppock_green_porter_2026,preview_dem,p. 28,average pro-Democratic effect,0.46,0.4640905748390057,1,NA
+coppock_green_porter_2026,sd_pid,p. 29,standard deviation of the seven-point scale,2,2.034999268099475,1,NA
+coppock_green_porter_2026,ad_1,p. 32,first single-video estimate,-0.08,-0.07765011119347368,1,NA
+coppock_green_porter_2026,ad_1_se,p. 32,its robust standard error,0.18,0.17657049669147398,1,NA
+coppock_green_porter_2026,ad_2,p. 32,second single-video estimate,-0.06,-0.0564858736447043,1,NA
+coppock_green_porter_2026,ad_2_se,p. 32,its robust standard error,0.15,0.14611840140248517,1,NA
+coppock_green_porter_2026,ads_tested,p. 32,ads tested,12,12,1,NA
+coppock_green_porter_2026,field_ate,p. 32,field estimate on party ID,0.007,0.00679423567332723,1,NA
+coppock_green_porter_2026,field_se,p. 32,its cluster-robust standard error,0.028,0.02755453453316974,1,NA
+coppock_green_porter_2026,n_study_1,p. 33,Study 1 respondents,988,995,0,paper_internal
+coppock_green_porter_2026,fig_2a_enrolled,"p. 37, Figure 2(a)",enrolled in Study 1 (334 + 334 + 327),995,995,1,NA
+coppock_green_porter_2026,n_study_2,p. 33,Study 2 subjects,3050,3050,1,NA
+coppock_green_porter_2026,cor_1,p. 34,Study 1 correlation,0.884,0.8844640233750969,1,NA
+coppock_green_porter_2026,cor_2,p. 34,Study 2 correlation,0.840,0.8395786252195458,1,NA
+coppock_green_porter_2026,index_items,p. 38,items in the partisan evaluation index,12,14,0,paper_internal
+coppock_green_porter_2026,s1_d_guns,p. 39,Study 1 smallest pro-Democratic,-0.36,-0.36322316463810533,1,NA
+coppock_green_porter_2026,s1_d_health,p. 39,Study 1 largest pro-Democratic,-0.67,-0.6739894361998376,1,NA
+coppock_green_porter_2026,s1_r_health,p. 39,Study 1 smallest pro-Republican,0.26,0.2612755071252253,1,NA
+coppock_green_porter_2026,s1_r_economy,p. 39,Study 1 largest pro-Republican,0.58,0.577805938858101,1,NA
+coppock_green_porter_2026,s2_d_guns,p. 39,Study 2 smallest pro-Democratic,-0.37,-0.3666692629065979,1,NA
+coppock_green_porter_2026,s2_d_health,p. 39,Study 2 largest pro-Democratic,-0.55,-0.5484931294837664,1,NA
+coppock_green_porter_2026,s2_r_guns,p. 39,Study 2 smallest pro-Republican,0.44,0.4414939944686002,1,NA
+coppock_green_porter_2026,s2_r_camps,p. 39,Study 2 Camps,1.02,1.0180796539679442,1,NA
+coppock_green_porter_2026,box_r_1,p. 40,Study 1 Republicans who would be Democrats,13.4,13.432835820895525,1,NA
+coppock_green_porter_2026,box_r_2,p. 40,Study 2 Republicans who would be Democrats,11.1,11.124121779859484,1,NA
+coppock_green_porter_2026,box_d_1,p. 40,Study 1 Democrats who would be Republicans,11.8,11.756756756756758,1,NA
+coppock_green_porter_2026,box_d_2,p. 40,Study 2 Democrats who would be Republicans,13.0,12.959183673469388,1,NA
+coppock_green_porter_2026,status_quo_low,p. 40,lowest status quo switching rate,3,3.2,1,NA
+coppock_green_porter_2026,status_quo_high,p. 40,highest status quo switching rate,8,7.686084142394822,1,NA
+coppock_green_porter_2026,post_d,p. 42,Study 1 pro-Democratic on party ID,-0.04,-0.04392904026171359,1,NA
+coppock_green_porter_2026,post_d_se,p. 42,its standard error,0.04,0.0425610164727248,1,NA
+coppock_green_porter_2026,post_r,p. 42,Study 1 pro-Republican on party ID,0.05,0.05258368983227719,1,NA
+coppock_green_porter_2026,post_r_se,p. 42,its standard error,0.04,0.04464592289009324,1,NA
+coppock_green_porter_2026,s1_index_largest,p. 42,largest Study 1 index estimate in percentage points,1.0,1.1356890161599107,0,paper_internal
+coppock_green_porter_2026,subgroup_significant,p. 43,significant subgroup tests,1,1,1,NA
+coppock_green_porter_2026,subgroup_p,p. 43,one-sided p,0.009,0.00914386770434487,1,NA
+coppock_green_porter_2026,status_quo_above_half,p. 43,status quo cells exceeding 50 percent of 42,42,42,1,NA
+coppock_green_porter_2026,mp_dem,p. 44,pro-Democratic macropartisanship,15,15.048859607080962,1,NA
+coppock_green_porter_2026,mp_rep,p. 44,pro-Republican macropartisanship,17,17.016484643894064,1,NA
+coppock_green_porter_2026,high_year,p. 44,year of the high,1977,1977,1,NA
+coppock_green_porter_2026,mp_high,p. 44,high,69.7,69.71037,1,NA
+coppock_green_porter_2026,low_year,p. 44,year of the low,2003,2003,1,NA
+coppock_green_porter_2026,mp_low,p. 44,low,47.2,47.17591,1,NA
+coppock_green_porter_2026,mp_range,p. 44,difference,22.5,22.534459999999996,1,NA
+coppock_green_porter_2026,swing_68_77,p. 44,1968 to 1977,12.5,12.476799999999995,1,NA
+coppock_green_porter_2026,swing_56_65,p. 44,1956 to 1965,12.2,12.224459999999986,1,NA
+coppock_green_porter_2026,swing_03_09,p. 44,2003 to 2009,10.7,10.770290000000005,0,paper_internal
+coppock_green_porter_2026,swing_77_85,p. 44,1977 to 1985,-18.7,-18.68875,1,NA
+coppock_green_porter_2026,swing_65_68,p. 44,1965 to 1968,-10.5,-10.490889999999991,1,NA
+coppock_green_porter_2026,swing_93_02_printed,p. 44,1993 to 2002 as an endpoint difference,-9.4,-9.38223,1,NA
+coppock_green_porter_2026,swing_third_republican,p. 44,third listed pro-Republican swing,-9.4,-10.969039999999993,0,paper_internal

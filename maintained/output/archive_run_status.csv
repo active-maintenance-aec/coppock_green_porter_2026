@@ -12,7 +12,7 @@ stripped,figure_7_meta_analysis_outcomes.R,0,NA
 stripped,figure_A4_trimming_analysis.R,0,"Error in summarise(., trimming_bounds(Y = { : "
 stripped,figure_B6_field_experiment_yesfe.R,0,NA
 stripped,figure_C7_theoffice.R,0,NA
-stripped,figure_C8_meta_analysis_hypotheticals.R,1,Error in position_dodgev(height = 0.25) : 
+stripped,figure_C8_meta_analysis_hypotheticals.R,0,NA
 stripped,figure_C9_probabilities_study_2.R,0,NA
 stripped,figure_C10-C11_party_switching.R,0,NA
 stripped,figures_A2_and_A3_response_rates.R,0,NA

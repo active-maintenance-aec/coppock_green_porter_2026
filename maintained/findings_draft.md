@@ -1,3 +1,5 @@
+**SUPERSEDED 2026-11-06 by `errata.qmd`.** Kept because `rm` is denied in the unattended run. Candidate 5 was dropped: the field identification index has three items where the third was asked. Candidate 7 became entry 7.
+
 # Draft findings, coppock_green_porter_2026 (2026-11-06)
 
 Working notes, not a spine. Nothing here is filed. Printed pages are the journal's (pp. 26-48); no quote below has been checked on a rendered page image, and each must be before filing.

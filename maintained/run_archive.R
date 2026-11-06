@@ -10,7 +10,8 @@
 #   copy sits in a directory of that name. figure_5, figure_7, and figure_C8 call format_num or
 #   make_se_entry, exported by rdss, without attaching rdss, so they fail as shipped; the stripped pass
 #   attaches it in those three scripts, and the as_shipped pass leaves them failing. figure_C8 also calls
-#   vayr's position_dodgev without attaching vayr, so the stripped pass attaches that as well.
+#   ggstance's position_dodgev without attaching it (figure_7 gets it through coefplot), so the stripped pass
+#   attaches that as well.
 
 library(tidyverse)
 library(here)
@@ -37,7 +38,7 @@ precomputed <- c("ates_study_1.rds", "ates_study_2.rds", "hypotheticals_study_1.
 
 unattached_rdss <- c("figure_5_party_switching.R", "figure_7_meta_analysis_outcomes.R",
                      "figure_C8_meta_analysis_hypotheticals.R")
-attach_rdss <- \(path) write_lines(c("library(rdss)", "library(vayr)", read_lines(path)), path)
+attach_rdss <- \(path) write_lines(c("library(rdss)", "library(ggstance)", read_lines(path)), path)
 
 restore_writes <- function(path) {
   lines <- read_lines(path)
