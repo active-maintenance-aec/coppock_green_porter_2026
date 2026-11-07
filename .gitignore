@@ -8,3 +8,4 @@ notes.md
 **/*.quarto_ipynb
 report/maintained/
 maintained/output/private/
+maintained/deposit/

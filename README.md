@@ -3,6 +3,7 @@
 
 - [Summary](#summary)
 - [What was run](#what-was-run)
+- [The deposit](#the-deposit)
 - [Checks and what they do not
   cover](#checks-and-what-they-do-not-cover)
 - [Not done](#not-done)
@@ -44,6 +45,13 @@ no differing shared column (`maintained/output/raw_to_clean.csv`). That
 test does not reach the survey experiments or the field experiment,
 whose cleaned files are inputs here.
 
+## The deposit
+
+The replication archive is deposited at Harvard Dataverse,
+doi:10.7910/DVN/LBPTEK (in preparation). The deposited copy is the
+authors’ final archive with identifying columns removed and two missing
+`library()` calls added to three scripts; its README lists the changes.
+
 ## Checks and what they do not cover
 
 - **Prose values.** `ground_truth/build_ground_truth.R` compares 56
@@ -73,5 +81,6 @@ whose cleaned files are inputs here.
   `video_all` does not name the video.
 - The page proofs in `QJPS page proofs/` were not compared, so entry
   13’s hyphenation may be the typesetter’s rather than the authors’.
-- Queue rows 13 to 15 are open for Alex: deposit status and the two
-  notes.
+- Queue rows 13 to 15 and 65 are answered: entries 1 and 2 stay in note
+  form, the archive is to be deposited, and row 65 names the columns
+  that leave it first. The deposit itself is Alex’s.
