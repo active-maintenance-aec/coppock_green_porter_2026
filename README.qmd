@@ -14,7 +14,7 @@ format:
 
 ## Summary
 
-`errata.qmd` lists 14 entries. Entries 1 and 2 are notes on coauthored claims that await the authors. The other 12 are corrections to the text, labels, one table, and the references. No public deposit was located, so the rerun rests on the authors' final replication archive, the 2025-12-29 zip in the local project folder. **A stranger cannot rerun this repository**, because `download_original.R` and `maintained/raw_to_clean.R` read that local folder. Raw exports hold IP addresses and coordinates and are never copied here. This repository has no independent rewrite, which falls short of Stage 3: every computed value comes from the deposit's own code and estimators, apart from the repaired one-sided test.
+`errata.qmd` lists 14 entries. Entries 5 and 6 are notes on coauthored claims that await the authors. The other 12 are corrections to the text, labels, one table, and the references. No public deposit was located, so the rerun rests on the authors' final replication archive, the 2025-12-29 zip in the local project folder. **A stranger cannot rerun this repository**, because `download_original.R` and `maintained/raw_to_clean.R` read that local folder. Raw exports hold IP addresses and coordinates and are never copied here. This repository has no independent rewrite, which falls short of Stage 3: every computed value comes from the deposit's own code and estimators, apart from the repaired one-sided test.
 
 ## What was run
 
@@ -43,4 +43,4 @@ The replication archive is deposited at Harvard Dataverse, doi:10.7910/DVN/LBPTE
 - The appendix prose was searched by known phrases and not read whole. The Table A.1 change made for the journal's replicator was not rechecked.
 - Study 4's added Table A.2 cells rest on a subtraction, since its `video_all` does not name the video.
 - The page proofs in `QJPS page proofs/` were not compared, so entry 13's hyphenation may be the typesetter's rather than the authors'.
-- Queue rows 13 to 15 and 65 are answered: entries 1 and 2 stay in note form, the archive is to be deposited, and row 65 names the columns that leave it first. The deposit itself is Alex's.
+- Queue rows 13 to 15 and 65 are answered: entries 5 and 6 stay in note form, the archive is to be deposited, and row 65 names the columns that leave it first. The deposit itself is Alex's.

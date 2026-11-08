@@ -10,7 +10,7 @@
 
 ## Summary
 
-`errata.qmd` lists 14 entries. Entries 1 and 2 are notes on coauthored
+`errata.qmd` lists 14 entries. Entries 5 and 6 are notes on coauthored
 claims that await the authors. The other 12 are corrections to the text,
 labels, one table, and the references. No public deposit was located, so
 the rerun rests on the authors’ final replication archive, the
@@ -81,6 +81,6 @@ authors’ final archive with identifying columns removed and two missing
   `video_all` does not name the video.
 - The page proofs in `QJPS page proofs/` were not compared, so entry
   13’s hyphenation may be the typesetter’s rather than the authors’.
-- Queue rows 13 to 15 and 65 are answered: entries 1 and 2 stay in note
+- Queue rows 13 to 15 and 65 are answered: entries 5 and 6 stay in note
   form, the archive is to be deposited, and row 65 names the columns
   that leave it first. The deposit itself is Alex’s.
