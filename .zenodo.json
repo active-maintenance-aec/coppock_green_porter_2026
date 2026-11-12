@@ -17,6 +17,12 @@
   ],
   "related_identifiers": [
     {
+      "identifier": "https://github.com/active-maintenance-aec/coppock_green_porter_2026",
+      "relation": "isSupplementTo",
+      "scheme": "url",
+      "resource_type": "software"
+    },
+    {
       "identifier": "10.7910/DVN/LBPTEK",
       "relation": "isDerivedFrom",
       "scheme": "doi"
