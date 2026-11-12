@@ -8,6 +8,8 @@
   cover](#checks-and-what-they-do-not-cover)
 - [Not done](#not-done)
 
+**Archived at Zenodo:** [doi:10.5281/zenodo.24168353](https://doi.org/10.5281/zenodo.24168353). This DOI always resolves to the latest release of the maintained version.
+
 ## Summary
 
 `errata.qmd` lists 14 entries. Entries 5 and 6 are notes on coauthored

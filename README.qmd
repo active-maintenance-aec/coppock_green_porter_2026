@@ -12,6 +12,8 @@ format:
     number-sections: true
 ---
 
+**Archived at Zenodo:** [doi:10.5281/zenodo.24168353](https://doi.org/10.5281/zenodo.24168353). This DOI always resolves to the latest release of the maintained version.
+
 ## Summary
 
 `errata.qmd` lists 14 entries. Entries 5 and 6 are notes on coauthored claims that await the authors. The other 12 are corrections to the text, labels, one table, and the references. No public deposit was located, so the rerun rests on the authors' final replication archive, the 2025-12-29 zip in the local project folder. **A stranger cannot rerun this repository**, because `download_original.R` and `maintained/raw_to_clean.R` read that local folder. Raw exports hold IP addresses and coordinates and are never copied here. This repository has no independent rewrite, which falls short of Stage 3: every computed value comes from the deposit's own code and estimators, apart from the repaired one-sided test.
