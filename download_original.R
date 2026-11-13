@@ -17,7 +17,7 @@ zip_path <- "submissions/qjps_final_take_2/replication_archive.zip"
 manifest <- read_csv(file.path(archive, "_ARCHIVE", "coppock_green_porter_2026_hypotheticals_manifest.csv"),
                      show_col_types = FALSE) |>
   filter(path == zip_path) |>
-  transmute(file = basename(path), bytes, md5)
+  transmute(file = basename(path), directory_label = NA_character_, bytes, md5)
 stopifnot(nrow(manifest) == 1)
 
 local_zip <- here::here("original", manifest$file)
@@ -29,7 +29,7 @@ if (!file.exists(local_zip)) {
 stopifnot(list.files(here::here("original")) == manifest$file,
           unname(md5sum(local_zip)) == manifest$md5,
           file.size(local_zip) == manifest$bytes)
-write_csv(manifest, here::here("original_manifest.csv"))
+write_csv(manifest, here::here("original_manifest.csv"), na = "")
 
 unlink(here::here("original_extracted"), recursive = TRUE)
 unzip(local_zip, exdir = here::here("original_extracted"))

@@ -11,7 +11,7 @@ Working notes, not a spine. Nothing here is filed. Printed pages are the journal
 - Project folder: `archived_projects/coppock_green_porter_2026/coppock_green_porter_hypotheticals` holds raw exports (`hyp_orig_*.csv`, `hyp_rep_*.csv`) and the cleaning scripts. `raw_data.csv` has IPAddress and LocationLatitude and Longitude columns. Never copy raw files into this repo.
 - `submissions/qjps_final_take_2/replication_report/`: the journal replicator's memo of 2025-10-31 and the authors' `responses.txt`. The replicator already moved the 0.56 and 0.46 preview, the -0.36 and -0.67, the 15 and 17 macropartisanship claim, and Table A.1, so those were checked once by someone else.
 
-## Rerun state (`maintained/output/archive_run_status.csv`)
+## Rerun state (`ground_truth/archive_run_status.csv`)
 
 As shipped, exit 1 on four of 20 scripts: `table_C5` (`write_rds`: cannot open the connection), `figure_5` (`format_num` in `summarise`), `figure_7` and `figure_C8` (`make_se_entry`). `figure_A4` exits 0 with an `Error` in its log (`trimming_bounds`). Stripped, `in_text_claims.R` also fails, on a missing rds downstream of those. **None of these has been chased.** Each is a hypothesis about package versions until it is: the archive records rdss 1.0.14 and estimatr 1.0.6, and this machine has rdss 1.0.16 and estimatr 2.0.1.9000. As-shipped `in_text_claims.R` runs to its end: log in `maintained/archive_run/as_shipped/logs/` (gitignored), 332 lines, not yet compared with the page beyond the two correlations.
 

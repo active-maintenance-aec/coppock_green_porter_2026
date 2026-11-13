@@ -1,0 +1,25 @@
+float,published_numbers,covered,reproduced_by_rewrite,reproduced_by_archive,plotted,plotted_reproduced,note
+Figure 1,90,2,2,NA,45,NA,Not compared against a rerun; covered counts the prose claims that restate a number on its face.
+Table 1,0,0,0,NA,NA,NA,Prints the text of the scenarios; carries no data.
+Figure 2,24,1,1,NA,NA,NA,A design diagram; its numbers are the sample sizes and scenario counts in its boxes.
+Figure 3,160,4,4,NA,80,NA,Not compared against a rerun; covered counts the prose claims that restate a number on its face.
+Figure 4,192,4,4,NA,96,NA,Not compared against a rerun; covered counts the prose claims that restate a number on its face.
+Figure 5,8,6,6,NA,294,NA,Not compared against a rerun; covered counts the prose claims that restate a number on its face.
+Figure 6,0,0,0,NA,33,NA,Not compared against a rerun.
+Figure 7,288,5,4,NA,144,NA,Not compared against a rerun; covered counts the prose claims that restate a number on its face.
+Figure A.1,0,0,0,NA,NA,NA,Screenshots of the twelve ads; carries no data.
+Table A.1,17,0,0,NA,NA,NA,Not compared against a rerun.
+Table A.2,70,0,0,NA,NA,NA,Not compared cell by cell; each row's printed cells were summed against dose times N in maintained/output/table_a2_sixth_video.csv.
+Figure A.2,28,0,0,NA,28,NA,Not compared against a rerun.
+Figure A.3,18,0,0,NA,18,NA,Not compared against a rerun.
+Figure A.4,0,0,0,NA,27,NA,Not compared against a rerun.
+Figure B.5,90,0,0,NA,45,NA,Not compared against a rerun.
+Table B.3,36,0,0,NA,NA,NA,Not compared against a rerun.
+Figure B.6,90,0,0,NA,45,NA,Not compared against a rerun.
+Figure C.7,0,0,0,NA,140,NA,Not compared against a rerun.
+Figure C.8,192,0,0,NA,96,NA,Not compared against a rerun.
+Table C.4,0,0,0,NA,NA,NA,Prints the text of the consolidation exercise; carries no data.
+Figure C.9,0,0,0,NA,126,NA,Not compared against a rerun.
+Table C.5,52,0,0,NA,NA,NA,Not compared against a rerun.
+Figure C.10,20,0,0,NA,735,NA,Not compared against a rerun.
+Figure C.11,24,0,0,NA,882,NA,Not compared against a rerun.

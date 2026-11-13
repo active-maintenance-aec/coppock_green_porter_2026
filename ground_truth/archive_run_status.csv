@@ -1,0 +1,41 @@
+pass,script,role,exit_status,outcome,stopped_at
+stripped,analyze_outcomes_study_1.R,analysis,0,clean,NA
+stripped,analyze_outcomes_study_2.R,analysis,0,clean,NA
+stripped,figure_3_hypotheticals_study_1.R,analysis,0,clean,NA
+stripped,figure_4_hypotheticals_study_2.R,analysis,0,clean,NA
+stripped,table_C5_macropartisanship_comparison.R,analysis,0,clean,NA
+stripped,figure_1_figure_B5_table_B3_field_experiment_nofe.R,analysis,0,clean,NA
+stripped,figure_2_consort_calculations.R,analysis,0,clean,NA
+stripped,figure_5_party_switching.R,analysis,0,clean,NA
+stripped,figure_6_hypotheticals_order.R,analysis,0,clean,NA
+stripped,figure_7_meta_analysis_outcomes.R,analysis,0,clean,NA
+stripped,figure_A4_trimming_analysis.R,analysis,0,clean,NA
+stripped,figure_B6_field_experiment_yesfe.R,analysis,0,clean,NA
+stripped,figure_C7_theoffice.R,analysis,0,clean,NA
+stripped,figure_C8_meta_analysis_hypotheticals.R,analysis,0,clean,NA
+stripped,figure_C9_probabilities_study_2.R,analysis,0,clean,NA
+stripped,figure_C10-C11_party_switching.R,analysis,0,clean,NA
+stripped,figures_A2_and_A3_response_rates.R,analysis,0,clean,NA
+stripped,table_A1_survey_experiments_1_and_2_ns.R,analysis,0,clean,NA
+stripped,table_A2_survey_experiments_345_ns.R,analysis,0,clean,NA
+stripped,in_text_claims.R,analysis,0,clean,NA
+as_shipped,analyze_outcomes_study_1.R,analysis,0,clean,NA
+as_shipped,analyze_outcomes_study_2.R,analysis,0,clean,NA
+as_shipped,figure_3_hypotheticals_study_1.R,analysis,0,clean,NA
+as_shipped,figure_4_hypotheticals_study_2.R,analysis,0,clean,NA
+as_shipped,table_C5_macropartisanship_comparison.R,analysis,0,clean,NA
+as_shipped,figure_1_figure_B5_table_B3_field_experiment_nofe.R,analysis,0,clean,NA
+as_shipped,figure_2_consort_calculations.R,analysis,0,clean,NA
+as_shipped,figure_5_party_switching.R,analysis,1,error,Error in `summarise()`:
+as_shipped,figure_6_hypotheticals_order.R,analysis,0,clean,NA
+as_shipped,figure_7_meta_analysis_outcomes.R,analysis,1,error,Error in `mutate()`:
+as_shipped,figure_A4_trimming_analysis.R,analysis,0,clean,NA
+as_shipped,figure_B6_field_experiment_yesfe.R,analysis,0,clean,NA
+as_shipped,figure_C7_theoffice.R,analysis,0,clean,NA
+as_shipped,figure_C8_meta_analysis_hypotheticals.R,analysis,1,error,Error in `mutate()`:
+as_shipped,figure_C9_probabilities_study_2.R,analysis,0,clean,NA
+as_shipped,figure_C10-C11_party_switching.R,analysis,0,clean,NA
+as_shipped,figures_A2_and_A3_response_rates.R,analysis,0,clean,NA
+as_shipped,table_A1_survey_experiments_1_and_2_ns.R,analysis,0,clean,NA
+as_shipped,table_A2_survey_experiments_345_ns.R,analysis,0,clean,NA
+as_shipped,in_text_claims.R,analysis,0,clean,NA

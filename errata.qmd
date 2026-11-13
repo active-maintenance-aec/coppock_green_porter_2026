@@ -157,13 +157,16 @@ stopifnot(nrow(entries) == max(entries$entry), !anyDuplicated(entries$entry),
           all(is.na(entries$corrected) == (entries$form == "note")),
           all(!is.na(entries$corrected_values) == (entries$class == "quantity")))
 
-# Each corrected value must sit inside a marked span of its sentence.
+# Each corrected value must sit inside a marked span of its sentence. The result is the spine's
+# values_in_spans column: NA for an entry with no values.
 values_in_spans <- function(corrected, values) {
+  if (is.na(values)) return(NA)
   spans <- str_c(str_extract_all(corrected, "\\[\\[.*?\\]\\]")[[1]], collapse = " ")
   all(str_detect(spans, fixed(str_split(values, ";")[[1]])))
 }
+entries <- entries |> mutate(values_in_spans = map2_lgl(corrected, corrected_values, values_in_spans))
 quantities <- entries |> filter(class == "quantity")
-stopifnot(all(map2_lgl(quantities$corrected, quantities$corrected_values, values_in_spans)),
+stopifnot(all(quantities$values_in_spans),
           all(str_count(quantities$claim_ids, ";") == str_count(quantities$corrected_values, ";")))
 
 bold <- function(x) str_replace_all(x, "\\[\\[(.*?)\\]\\]", "**\\1**")

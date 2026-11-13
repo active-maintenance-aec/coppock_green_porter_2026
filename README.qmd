@@ -12,6 +12,16 @@ format:
     number-sections: true
 ---
 
+```{r setup, include=FALSE}
+library(tidyverse)
+library(here)
+here::i_am("README.qmd")
+status <- read_csv(here("ground_truth", "archive_run_status.csv"), show_col_types = FALSE)
+overwrites <- read_csv(here("ground_truth", "archive_overwrites.csv"), show_col_types = FALSE)
+rebuilt <- filter(overwrites, pass == "stripped", effect == "rebuilt")
+stopifnot(nrow(rebuilt) == 5)
+```
+
 **Archived at Zenodo:** [doi:10.5281/zenodo.24168353](https://doi.org/10.5281/zenodo.24168353). This DOI always resolves to the latest release of the maintained version.
 
 ## Summary
@@ -20,13 +30,13 @@ format:
 
 ## What was run
 
-`maintained/run_archive.R` runs 20 scripts twice in scratch copies. Causes of the as-shipped failures, each shown by its log:
+`maintained/run_archive.R` runs `r n_distinct(status$script)` scripts twice in scratch copies, records each run in `ground_truth/archive_run_status.csv`, and records the files each pass wrote in `ground_truth/archive_overwrites.csv`. Causes of the as-shipped failures, each shown by its log:
 
 - `table_C5` writes to `../replication_archive/`. The first harness's scratch name caused that failure, so it was not an archive defect, and the scratch copy now has that name.
 - `figure_5`, `figure_7`, and `figure_C8` call `format_num` or `make_se_entry`, exported by `rdss`, without attaching `rdss`. They fail as shipped. This is an archive defect. The stripped pass attaches it, and `ggstance` too because `figure_C8` calls `position_dodgev`.
 - `figure_A4` logs an error and exits 0. The script's comment says such errors are caught and handled, and the error is inside its `try()` around bootstrap draws.
 
-The five shipped estimate files reproduce on the stripped pass, with a largest numeric difference below 6e-13. `maintained/raw_to_clean.R` rebuilds the four cleaned hypothetical files from the raw exports with no differing shared column (`maintained/output/raw_to_clean.csv`). That test does not reach the survey experiments or the field experiment, whose cleaned files are inputs here.
+The five shipped estimate files are rebuilt on the stripped pass, with a largest numeric difference below 6e-13. `r sum(rebuilt$matches_deposit)` of the five match the shipped files outright; the other `r sum(!rebuilt$matches_deposit)`, the two `hypotheticals_study` files, label the treatment "Pro-Democratic hypotheticals" where the shipped files read "Pro-Democrat hypotheticals". `maintained/raw_to_clean.R` rebuilds the four cleaned hypothetical files from the raw exports with no differing shared column (`maintained/output/raw_to_clean.csv`). That test does not reach the survey experiments or the field experiment, whose cleaned files are inputs here.
 
 ## The deposit
 
@@ -35,6 +45,8 @@ The replication archive is deposited at Harvard Dataverse, doi:10.7910/DVN/LBPTE
 ## Checks and what they do not cover
 
 - **Prose values.** `ground_truth/build_ground_truth.R` compares 56 claims with the rerun at the page's precision. The mismatches are the spine's. These compare the page with the deposit's own data, so a defect both inherit would pass.
+- **Claims script.** `maintained/in_text_claims.R` scores each extracted claim with `excheckr`: a claim a quantity erratum names must equal the corrected value, and every other claim must match the page. It reads the same `page_values.csv` as the ground truth, so it ties the errata to the rerun rather than checking each value by a second path.
+- **Float coverage.** `ground_truth/float_coverage.csv` lists the 24 floats with the numbers each prints and the quantities each figure plots. No float is rebuilt, and `covered` counts the prose claims that restate a number a float prints.
 - **Negative controls.** `ground_truth/negative_controls.R` tests that the gate fires on those faults only.
 - **Page checks.** Every quote was read on a rendered crop of its key clause, and Figure 2 on the page. The rest of each sentence-long quote rests on the text layer.
 - **Crossref.** Family names and years were compared for most article references. The service rate-limited 13 of 48 and 11 were not parsed, mostly books. Only Goren and Chapp was rechecked singly, so the reference list is not fully checked.

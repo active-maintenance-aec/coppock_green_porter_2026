@@ -8,7 +8,10 @@
   cover](#checks-and-what-they-do-not-cover)
 - [Not done](#not-done)
 
-**Archived at Zenodo:** [doi:10.5281/zenodo.24168353](https://doi.org/10.5281/zenodo.24168353). This DOI always resolves to the latest release of the maintained version.
+**Archived at Zenodo:**
+[doi:10.5281/zenodo.24168353](https://doi.org/10.5281/zenodo.24168353).
+This DOI always resolves to the latest release of the maintained
+version.
 
 ## Summary
 
@@ -26,7 +29,9 @@ repaired one-sided test.
 
 ## What was run
 
-`maintained/run_archive.R` runs 20 scripts twice in scratch copies.
+`maintained/run_archive.R` runs 20 scripts twice in scratch copies,
+records each run in `ground_truth/archive_run_status.csv`, and records
+the files each pass wrote in `ground_truth/archive_overwrites.csv`.
 Causes of the as-shipped failures, each shown by its log:
 
 - `table_C5` writes to `../replication_archive/`. The first harness’s
@@ -40,10 +45,13 @@ Causes of the as-shipped failures, each shown by its log:
   errors are caught and handled, and the error is inside its `try()`
   around bootstrap draws.
 
-The five shipped estimate files reproduce on the stripped pass, with a
-largest numeric difference below 6e-13. `maintained/raw_to_clean.R`
-rebuilds the four cleaned hypothetical files from the raw exports with
-no differing shared column (`maintained/output/raw_to_clean.csv`). That
+The five shipped estimate files are rebuilt on the stripped pass, with a
+largest numeric difference below 6e-13. 3 of the five match the shipped
+files outright; the other 2, the two `hypotheticals_study` files, label
+the treatment “Pro-Democratic hypotheticals” where the shipped files
+read “Pro-Democrat hypotheticals”. `maintained/raw_to_clean.R` rebuilds
+the four cleaned hypothetical files from the raw exports with no
+differing shared column (`maintained/output/raw_to_clean.csv`). That
 test does not reach the survey experiments or the field experiment,
 whose cleaned files are inputs here.
 
@@ -60,6 +68,15 @@ authors’ final archive with identifying columns removed and two missing
   claims with the rerun at the page’s precision. The mismatches are the
   spine’s. These compare the page with the deposit’s own data, so a
   defect both inherit would pass.
+- **Claims script.** `maintained/in_text_claims.R` scores each extracted
+  claim with `excheckr`: a claim a quantity erratum names must equal the
+  corrected value, and every other claim must match the page. It reads
+  the same `page_values.csv` as the ground truth, so it ties the errata
+  to the rerun rather than checking each value by a second path.
+- **Float coverage.** `ground_truth/float_coverage.csv` lists the 24
+  floats with the numbers each prints and the quantities each figure
+  plots. No float is rebuilt, and `covered` counts the prose claims that
+  restate a number a float prints.
 - **Negative controls.** `ground_truth/negative_controls.R` tests that
   the gate fires on those faults only.
 - **Page checks.** Every quote was read on a rendered crop of its key

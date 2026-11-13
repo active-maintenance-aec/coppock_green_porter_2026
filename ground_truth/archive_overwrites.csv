@@ -1,0 +1,12 @@
+pass,file,effect,matches_deposit
+stripped,ates_study_1.rds,rebuilt,TRUE
+stripped,ates_study_2.rds,rebuilt,TRUE
+stripped,hypotheticals_study_1.rds,rebuilt,FALSE
+stripped,hypotheticals_study_2.rds,rebuilt,FALSE
+stripped,macropartisanship_estimates.rds,rebuilt,TRUE
+stripped,Rplots.pdf,added,NA
+stripped,study_2_probabilities.pdf,added,NA
+as_shipped,ates_study_2.rds,overwritten,TRUE
+as_shipped,macropartisanship_estimates.rds,overwritten,TRUE
+as_shipped,Rplots.pdf,added,NA
+as_shipped,study_2_probabilities.pdf,added,NA
