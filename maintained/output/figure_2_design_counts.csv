@@ -1,0 +1,19 @@
+study,count,group,n
+Study 1,enrolled by batch,Democrat sample,334
+Study 1,enrolled by batch,Independent sample,334
+Study 1,enrolled by batch,Republican sample,327
+Study 1,assigned,Pro-Democrat hypotheticals,328
+Study 1,assigned,Pro-Republican hypotheticals,325
+Study 1,assigned,Status quo hypotheticals,342
+Study 1,measured,Pro-Democrat hypotheticals,328
+Study 1,measured,Pro-Republican hypotheticals,325
+Study 1,measured,Status quo hypotheticals,340
+Study 2,enrolled by batch,Democrat sample,1017
+Study 2,enrolled by batch,Independent sample,1016
+Study 2,enrolled by batch,Republican sample,1017
+Study 2,assigned,Pro-Democrat hypotheticals,1029
+Study 2,assigned,Pro-Republican hypotheticals,1021
+Study 2,assigned,Status quo hypotheticals,1000
+Study 2,measured,Pro-Democrat hypotheticals,1022
+Study 2,measured,Pro-Republican hypotheticals,1010
+Study 2,measured,Status quo hypotheticals,991

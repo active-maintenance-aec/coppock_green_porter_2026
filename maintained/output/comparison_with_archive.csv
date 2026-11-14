@@ -1,0 +1,4 @@
+estimates,rows_rewrite,rows_archive,rows_matched,max_abs_diff_estimate,max_abs_diff_std.error,min_ratio_std.error,max_ratio_std.error
+Hypothetical effects (Figures 3 and 4),176,176,176,1.1102230246251565e-16,2.7755575615628914e-17,NA,NA
+Post-treatment outcomes,96,96,96,1.3877787807814457e-17,9.540979117872439e-18,NA,NA
+Macropartisanship (Table C.5),26,26,26,0,0.002798845332344764,0.9819614685199505,1.0609209804964346

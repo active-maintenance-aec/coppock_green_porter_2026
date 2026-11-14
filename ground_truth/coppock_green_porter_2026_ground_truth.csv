@@ -4,7 +4,7 @@ coppock_green_porter_2026,switch_status_quo,abstract,pipeline,percent imagining 
 coppock_green_porter_2026,switch_gap,"p. 26, p. 28, p. 40",pipeline,difference in percentage points,7.0,1,NA,NA,7.035532176115369,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,switch_gap_se,"p. 26, p. 40",pipeline,standard error of the difference,1.5,1,NA,NA,1.4680827241536851,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,preview_rep,p. 28,pipeline,average pro-Republican effect,0.56,2,NA,NA,0.5593374507608847,TRUE,NA,NA,NA,NA,NA
-coppock_green_porter_2026,preview_dem,p. 28,pipeline,average pro-Democratic effect,0.46,2,NA,NA,0.4640905748390057,TRUE,NA,NA,NA,NA,NA
+coppock_green_porter_2026,preview_dem,p. 28,pipeline,average pro-Democratic effect,0.46,2,NA,NA,0.4640905748390058,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,sd_pid,p. 29,pipeline,standard deviation of the seven-point scale,2,0,NA,NA,2.034999268099475,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,ad_1,p. 32,pipeline,first single-video estimate,-0.08,2,NA,NA,-0.07765011119347368,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,ad_1_se,p. 32,pipeline,its robust standard error,0.18,2,NA,NA,0.17657049669147398,TRUE,NA,NA,NA,NA,NA
@@ -37,12 +37,12 @@ coppock_green_porter_2026,post_d,p. 42,pipeline,Study 1 pro-Democratic on party 
 coppock_green_porter_2026,post_d_se,p. 42,pipeline,its standard error,0.04,2,NA,NA,0.0425610164727248,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,post_r,p. 42,pipeline,Study 1 pro-Republican on party ID,0.05,2,NA,NA,0.05258368983227719,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,post_r_se,p. 42,pipeline,its standard error,0.04,2,NA,NA,0.04464592289009324,TRUE,NA,NA,NA,NA,NA
-coppock_green_porter_2026,s1_index_largest,p. 42,pipeline,largest Study 1 index estimate in percentage points,1.0,1,NA,NA,1.1356890161599107,FALSE,NA,paper_internal,corrected_here,NA,The sentence states a bound: estimates of a percentage point or less.
+coppock_green_porter_2026,s1_index_largest,p. 42,pipeline,largest Study 1 index estimate in percentage points,1.0,1,NA,NA,1.13568901615991,FALSE,NA,paper_internal,corrected_here,NA,The sentence states a bound: estimates of a percentage point or less.
 coppock_green_porter_2026,subgroup_significant,p. 43,pipeline,significant subgroup tests,1,0,NA,NA,1,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,subgroup_p,p. 43,pipeline,one-sided p,0.009,3,NA,NA,0.00914386770434487,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,status_quo_above_half,p. 43,pipeline,status quo cells exceeding 50 percent of 42,42,0,NA,NA,42,TRUE,NA,NA,NA,NA,NA
-coppock_green_porter_2026,mp_dem,p. 44,pipeline,pro-Democratic macropartisanship,15,0,NA,NA,15.048859607080962,TRUE,NA,NA,NA,NA,NA
-coppock_green_porter_2026,mp_rep,p. 44,pipeline,pro-Republican macropartisanship,17,0,NA,NA,17.016484643894064,TRUE,NA,NA,NA,NA,NA
+coppock_green_porter_2026,mp_dem,p. 44,pipeline,pro-Democratic macropartisanship,15,0,NA,NA,15.008321795170886,TRUE,NA,NA,NA,NA,NA
+coppock_green_porter_2026,mp_rep,p. 44,pipeline,pro-Republican macropartisanship,17,0,NA,NA,16.992088601795366,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,high_year,p. 44,pipeline,year of the high,1977,0,NA,NA,1977,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,mp_high,p. 44,pipeline,high,69.7,1,NA,NA,69.71037,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,low_year,p. 44,pipeline,year of the low,2003,0,NA,NA,2003,TRUE,NA,NA,NA,NA,NA

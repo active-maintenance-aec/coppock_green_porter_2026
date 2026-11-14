@@ -1,9 +1,10 @@
 # coppock_green_porter_2026/maintained/page_values.R
 # Output: maintained/output/page_values.csv, maintained/output/one_sided_tests.csv,
 #   maintained/output/table_a2_sixth_video.csv
-# Depends on: maintained/archive_run/stripped/replication_archive/
-# Description: Compute the numbers the article's prose states and the errata needs, with the deposit's
-#   estimators, from the stripped rerun. It also repairs the deposit's one-sided test. The deposit's Study 1
+# Depends on: original/ (the deposit's data), the rewrite's estimates in maintained/output/, and
+#   maintained/archive_run/stripped/replication_archive/ for the deposit's shipped one-sided p only
+# Description: Compute the numbers the article's prose states and the errata needs, from the deposit's data
+#   and the rewrite's estimates. It also repairs the deposit's one-sided test. The deposit's Study 1
 #   column is NA on every Pro-Democratic row, because it matches a label already renamed, and it tests the
 #   0-1 indexes in the wrong direction, because a higher index is more Democratic. That repair is mine.
 
@@ -16,14 +17,15 @@ library(here)
 here::i_am("maintained/page_values.R")
 
 archive <- here::here("maintained", "archive_run", "stripped", "replication_archive")
-data_file <- \(file) read_rds(file.path(archive, file))
+data_file <- \(file) read_rds(here::here("original", file))
+estimates_file <- \(file) read_csv(here::here("maintained", "output", file), show_col_types = FALSE)
 study_1 <- data_file("clean_hypotheticals_study_1.rds")
 study_2 <- data_file("clean_hypotheticals_study_2.rds")
 long_1 <- data_file("clean_hypotheticals_study_1_long.rds")
 long_2 <- data_file("clean_hypotheticals_study_2_long.rds")
 survey <- data_file("clean_survey_experiments.rds")
 field <- data_file("clean_field_experiments.rds")
-macro <- read_csv(file.path(archive, "macro_data.csv"), show_col_types = FALSE)
+macro <- read_csv(here::here("original", "macro_data.csv"), show_col_types = FALSE)
 values <- list()
 put <- function(...) values <<- c(values, list(...))
 
@@ -71,9 +73,10 @@ put(switch_gap = 100 * coef(gap_fit), switch_gap_se = 100 * gap_fit$se, switch_s
     switch_treated = 100 * (coef(gap_fit) + coef(status_quo_fit)))
 
 # Hypothetical effects ----
-hyp <- bind_rows(s1 = data_file("hypotheticals_study_1.rds"), s2 = data_file("hypotheticals_study_2.rds"), .id = "study") |>
+hyp <- bind_rows(s1 = estimates_file("estimates_hypotheticals_study_1.csv"),
+                 s2 = estimates_file("estimates_hypotheticals_study_2.csv"), .id = "study") |>
   filter(pid_7_factor_pre == "Overall") |> mutate(term = str_extract(term, "Pro-[A-Z]"))
-effect <- \(s, t, f) hyp$estimate[hyp$study == s & hyp$term == t & hyp$facet_label == f]
+effect <- \(s, t, f) hyp$estimate[hyp$study == s & hyp$term == t & hyp$scenario == f]
 pooled <- \(t) { d <- filter(hyp, term == t); coef(rma.uni(estimate ~ 1, sei = std.error, data = d)) }
 put(preview_rep = pooled("Pro-R"), preview_dem = abs(pooled("Pro-D")),
     s1_d_guns = effect("s1", "Pro-D", "Guns"), s1_d_health = effect("s1", "Pro-D", "Healthcare"),
@@ -81,7 +84,7 @@ put(preview_rep = pooled("Pro-R"), preview_dem = abs(pooled("Pro-D")),
     s2_d_guns = effect("s2", "Pro-D", "Guns"), s2_d_health = effect("s2", "Pro-D", "Healthcare"),
     s2_r_guns = effect("s2", "Pro-R", "Guns"), s2_r_camps = effect("s2", "Pro-R", "Camps"))
 extreme_holds <- hyp |> filter(!is.na(estimate)) |> group_by(study, term) |>
-  summarise(lo = facet_label[which.min(abs(estimate))], hi = facet_label[which.max(abs(estimate))], .groups = "drop")
+  summarise(lo = scenario[which.min(abs(estimate))], hi = scenario[which.max(abs(estimate))], .groups = "drop")
 stopifnot(extreme_holds$lo == c("Guns", "Healthcare", "Guns", "Guns"), extreme_holds$hi == c("Healthcare", "Economy", "Healthcare", "Camps"))
 
 first_cor <- \(d) d |> filter(treatment == "Status quo hypotheticals") |> summarise(r = cor(pid_7_pre, first_value_hyp, use = "complete.obs")) |> pull(r)
@@ -112,21 +115,27 @@ stopifnot(all(setdiff(videos, "Negative Partisanship") %in% survey$Z_fac),
 put(ads_tested = length(videos))
 
 # Post-treatment effects, the one-sided tests, and what the page calls null ----
-ates <- bind_rows(s1 = data_file("ates_study_1.rds"), s2 = data_file("ates_study_2.rds"), .id = "study") |>
-  mutate(is_index = !str_starts(facet_label, "Party"), pro_dem = str_starts(term, "Pro-Dem"),
+# p.value_alt is the deposit's shipped one-sided p, which only the archive's rerun carries.
+shipped_p <- bind_rows(s1 = read_rds(file.path(archive, "ates_study_1.rds")),
+                       s2 = read_rds(file.path(archive, "ates_study_2.rds")), .id = "study") |>
+  transmute(study, outcome, pid_7_factor_pre = as.character(pid_7_factor_pre), term, p.value_alt)
+ates <- estimates_file("estimates_post_treatment_outcomes.csv") |>
+  mutate(study = str_replace(study, "^study_", "s")) |>
+  left_join(shipped_p, by = join_by(study, outcome, pid_7_factor_pre, term), relationship = "one-to-one") |>
+  mutate(is_index = outcome != "pid_7_post", pro_dem = str_starts(term, "Pro-Dem"),
          direction = case_when(pro_dem == is_index ~ 1, .default = -1),
          p_repaired = pt(direction * statistic, df = df, lower.tail = FALSE),
          p_bh = p.adjust(p_repaired, "BH"))
-write_csv(select(ates, study, pid_7_factor_pre, facet_label, term, estimate, std.error, p.value, p.value_alt, p_repaired, p_bh),
+write_csv(select(ates, study, pid_7_factor_pre, outcome, term, estimate, std.error, p.value, p.value_alt, p_repaired, p_bh),
           here::here("maintained", "output", "one_sided_tests.csv"))
-overall <- \(s, f, d) ates |> filter(study == s, str_starts(facet_label, f), pro_dem == d, pid_7_factor_pre == "Overall")
-pid_d <- overall("s1", "Party", TRUE); pid_r <- overall("s1", "Party", FALSE)
-eval_d <- overall("s2", "Partisan Eval", TRUE); id_d <- overall("s2", "Partisan Iden", TRUE)
+overall <- \(s, y, d) ates |> filter(study == s, outcome == y, pro_dem == d, pid_7_factor_pre == "Overall")
+pid_d <- overall("s1", "pid_7_post", TRUE); pid_r <- overall("s1", "pid_7_post", FALSE)
+eval_d <- overall("s2", "partisan_evaluation_index_post", TRUE); id_d <- overall("s2", "partisan_identification_index_post", TRUE)
 subgroup <- ates |> filter(pid_7_factor_pre != "Overall")
 lone <- subgroup |> filter(p_repaired <= 0.025)
 stopifnot(nrow(lone) == 1, lone$study == "s1", as.character(lone$pid_7_factor_pre) == "Not very strong Republican")
 s1_indexes <- ates |> filter(study == "s1", is_index, pid_7_factor_pre == "Overall")
-se_pid_2 <- overall("s2", "Party", TRUE)$std.error; se_pid_2r <- overall("s2", "Party", FALSE)$std.error
+se_pid_2 <- overall("s2", "pid_7_post", TRUE)$std.error; se_pid_2r <- overall("s2", "pid_7_post", FALSE)$std.error
 power_at <- \(se) pnorm(0.05 / se - qnorm(0.975)) + pnorm(-0.05 / se - qnorm(0.975))
 put(post_d = pid_d$estimate, post_d_se = pid_d$std.error, post_r = pid_r$estimate, post_r_se = pid_r$std.error,
     subgroup_significant = nrow(lone), subgroup_p = lone$p_repaired, subgroup_bh = lone$p_bh,
@@ -138,7 +147,7 @@ put(post_d = pid_d$estimate, post_d_se = pid_d$std.error, post_r = pid_r$estimat
     power_d = power_at(se_pid_2), power_r = power_at(se_pid_2r), se_pid_d = se_pid_2, se_pid_r = se_pid_2r)
 
 # Macropartisanship ----
-mp <- data_file("macropartisanship_estimates.rds") |> filter(hypothetical_label == "Overall")
+mp <- estimates_file("estimates_macropartisanship.csv") |> filter(hypothetical_label == "Overall")
 put(mp_dem = 100 * coef(rma.uni(mp$MP_D, sei = mp$MP_D_SE)), mp_rep = abs(100 * coef(rma.uni(mp$MP_R, sei = mp$MP_R_SE))))
 series <- macro |> transmute(year, date, value = 100 * macropartisanship) |> arrange(year, date) |> mutate(index = row_number())
 swing <- \(from, to, sign) {

@@ -1,0 +1,9 @@
+study,treatment,direction,estimate
+Study 1,Pro-Democratic hypotheticals,r_to_d,13.432835820895523
+Study 2,Pro-Democratic hypotheticals,r_to_d,11.124121779859484
+Study 1,Status quo hypotheticals,d_to_r,3.2
+Study 1,Status quo hypotheticals,r_to_d,3.7908496732026142
+Study 2,Status quo hypotheticals,d_to_r,5.319148936170213
+Study 2,Status quo hypotheticals,r_to_d,7.686084142394822
+Study 1,Pro-Republican hypotheticals,d_to_r,11.756756756756758
+Study 2,Pro-Republican hypotheticals,d_to_r,12.959183673469388
