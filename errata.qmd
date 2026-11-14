@@ -41,6 +41,21 @@ month_label <- format(ymd(str_c(months$month, "-01")), "%B %Y")
 sixth <- read_csv(here("maintained", "output", "table_a2_sixth_video.csv"), show_col_types = FALSE) |> filter(dosage_continuous > 0)
 stopifnot(all(sixth$sixth[sixth$notaparty > 0] == sixth$notaparty[sixth$notaparty > 0]), all(sixth$sixth[sixth$study != "study_4_dosage"] == sixth$notaparty[sixth$study != "study_4_dosage"]))
 sixth_cells <- str_flatten_comma(sixth$sixth)
+
+batches <- read_csv(here("maintained", "output", "figure_2_design_counts.csv"), show_col_types = FALSE) |>
+  filter(count == "enrolled by batch")
+enrolled <- \(s, g) format(batches$n[batches$study == s & batches$group == g], big.mark = ",")
+stopifnot(enrolled("Study 1", "Independent sample") == "327", enrolled("Study 1", "Republican sample") == "334",
+          enrolled("Study 2", "Independent sample") == "1,017", enrolled("Study 2", "Republican sample") == "1,016")
+
+bounds <- read_csv(here("maintained", "output", "estimates_trimming_bounds.csv"), show_col_types = FALSE) |>
+  mutate(ratio = naive_est_se / naive_est_se_deposit,
+         deposit_low = naive_est - 1.96 * naive_est_se_deposit,
+         deposit_high = naive_est + 1.96 * naive_est_se_deposit)
+stopifnot(bounds$naive_conf.low < 0, bounds$naive_conf.high > 0, bounds$deposit_low < 0, bounds$deposit_high > 0)
+ratio_range <- sprintf("%.2f", range(bounds$ratio))
+widest <- bounds |> filter(label == "Study 4: 6 Ads")
+interval <- \(lo, hi) str_replace_all(str_c(sprintf("%.2f", lo), " to ", sprintf("%.2f", hi)), "-", "−")
 ```
 
 ```{r entries}
@@ -61,7 +76,7 @@ entries <- tribble(
   "p. 33",
   "In Study 1, we recruited 988 respondents",
   str_glue("In Study 1, we recruited [[{study_1_n}]] respondents"),
-  str_glue("Figure 2(a) enrolls 334, 334, and 327, and the cleaned data and the rerun from raw exports both hold {study_1_n}. The 988 comes from the pre-analysis plan."),
+  str_glue("Figure 2(a) enrolls 334, 334, and 327, and the cleaned data and the rerun from raw exports both hold {study_1_n}. The 988 is the pre-analysis plan's count, made by an earlier cleaning of a 2023-08-23 export. That export held only completed interviews, and the earlier cleaning dropped its first two data rows as if they were Qualtrics header lines, though they were two completed interviews that passed the attention check. The later exports also hold five partial interviews closed on 2023-08-24, and Study 2's cleaning keeps partial interviews too. Figure 7's Study 1 column was estimated on the 988-row file: 12 of its 48 labels move in the third decimal, and no sign or significance changes."),
   "n_study_1", as.character(study_1_n),
 
   3, "quantity", "pipeline", "full",
@@ -115,9 +130,9 @@ entries <- tribble(
   9, "label", "reading", "brief",
   "Labels in Figure 2",
   "p. 37, Figure 2",
-  "(b): 5 Pro-Democratic Hypotheticals / 5 Status Quo Hypotheticals / 5 Pro-Republican Hypotheticals. (a): 5 Pro-Status Quo Hypotheticals",
-  str_glue("(b): [[{hypotheticals}]] Pro-Democratic Hypotheticals / [[{hypotheticals}]] Status Quo Hypotheticals / [[{hypotheticals}]] Pro-Republican Hypotheticals. (a): 5 [[Status Quo]] Hypotheticals"),
-  "Page 36 says Study 2 added a sixth scenario, and its data hold six. Only the labels change.",
+  "(a): 5 Pro-Status Quo Hypotheticals / 334 Independents enrolled / 327 Republicans enrolled. (b): 5 Pro-Democratic Hypotheticals / 5 Status Quo Hypotheticals / 5 Pro-Republican Hypotheticals / 1,016 Independents enrolled / 1,017 Republicans targeted and enrolled",
+  str_glue("(a): 5 [[Status Quo]] Hypotheticals / [[{enrolled('Study 1', 'Independent sample')}]] Independents enrolled / [[{enrolled('Study 1', 'Republican sample')}]] Republicans enrolled. (b): [[{hypotheticals}]] Pro-Democratic Hypotheticals / [[{hypotheticals}]] Status Quo Hypotheticals / [[{hypotheticals}]] Pro-Republican Hypotheticals / [[{enrolled('Study 2', 'Independent sample')}]] Independents enrolled / [[{enrolled('Study 2', 'Republican sample')}]] Republicans targeted and enrolled"),
+  "Page 36 says Study 2 added a sixth scenario, and its data hold six. The cleaning scripts give the Republican recruitment batch the independents' label and the reverse: in both studies, more than nine in ten respondents in the batch the figure counts as independents place themselves at 5 to 7 before treatment. Only the labels change. The estimates use the batch as a covariate, where its name does not matter.",
   "", NA_character_,
 
   10, "label", "pipeline", "brief",
@@ -133,20 +148,28 @@ entries <- tribble(
   "app. Table A.2",
   "Charisma / Social Identity / Performance / Issues / Generic / Placebo",
   str_glue("Charisma / Social Identity / Performance / Issues / Generic / [[Negative Partisanship ({sixth_cells})]] / Placebo"),
-  "The table's script sums five video indicators, so the cells of each row do not reach dose times N. The twelfth ad, Negative Partisanship, is the sixth video in these studies. The added cells run down the table's nonzero doses. They are dose times N less the printed five, and they equal the count of that video in `video_all` for Studies 3 and 5. Study 4's `video_all` does not identify it, so Study 4's two cells rest on the subtraction alone. The printed cells stand.",
+  "The table's script sums five video indicators, so the cells of each row do not reach dose times N. The twelfth ad, Negative Partisanship, is the sixth video in these studies. The added cells run down the table's nonzero doses. They are dose times N less the printed five, and the cleaned data's `notaparty` indicator sums to each of them. For Studies 3 and 5 they also equal the count of that video in `video_all`, which does not name it in Study 4. The printed cells stand.",
   "", NA_character_,
 
-  12, "wording", "reading", "brief", "Wording, main text", "pp. 34, 35, 38, 39, 44, and 45",
+  12, "float", "pipeline", "brief",
+  "The naive intervals in Figure A.4",
+  "app. Figure A.4",
+  str_glue("Naive estimate (95% CI), e.g. Study 4: 6 Ads, {interval(widest$deposit_low, widest$deposit_high)}"),
+  str_glue("Naive estimate (95% CI), e.g. Study 4: 6 Ads, [[{interval(widest$naive_conf.low, widest$naive_conf.high)}]]"),
+  str_glue("The bootstrap set each naive estimate's standard error to the spread of the lower bound's replicates rather than its own. From the same draws, the corrected intervals are {ratio_range[1]} to {ratio_range[2]} times as wide as the printed ones, and every interval still spans zero. The bounds and their intervals do not change."),
+  "", NA_character_,
+
+  13, "wording", "reading", "brief", "Wording, main text", "pp. 34, 35, 38, 39, 44, and 45",
   "the fact that respondents snap back to their earlier partisan identity after the hypotheticals suggest / call up the National Guuard / Marjorie Taylor Green (twice) / For Republicans in this study, the Guns hypothetical / Goren and Chap, 2017 / ruminating on hypothetical scenarios, even those that respondents find plausible, are insufficient",
   "the fact that respondents snap back to their earlier partisan identity after the hypotheticals [[suggests]] / call up the National [[Guard]] / Marjorie Taylor [[Greene]] (twice) / For [[the pro-Republican hypotheticals]] in this study, the Guns hypothetical / Goren and [[Chapp]], 2017 / ruminating on hypothetical scenarios, even those that respondents find plausible, [[is]] insufficient",
   "The fielded instruments read Guard. Crossref gives the family name Chapp.", "", NA_character_,
 
-  13, "wording", "reading", "brief", "Wording, references", "pp. 46-48",
+  14, "wording", "reading", "brief", "Wording, references", "pp. 46-48",
   "“Short-term forces and partisan-ship” / “Where to place sensi-tive questions? / a field experiment with ffox nnews viewers / Goren, P. and Chap, C. / Petty, R.E., Cacioppo, J.T., Petty, R.E. and Cacioppo, J.T.",
   "“Short-term forces and [[partisanship]]” / “Where to place [[sensitive]] questions? / a field experiment with [[Fox News]] viewers / Goren, P. and [[Chapp]], C. / Petty, R.E.[[ and]] Cacioppo, J.T.",
   "", "", NA_character_,
 
-  14, "wording", "reading", "brief", "Wording, appendix", "app. Sections A to C",
+  15, "wording", "reading", "brief", "Wording, appendix", "app. Sections A to C",
   "treatment views encountered / We used a placebo-controlled designs / the response rates by save and condition / a few more demographic variable / Outcomes were assess via telephone survey / Marjorie Taylor-Green / The results are shows in Figure C.7 / The entries in TableC.5 / the basic patten we obtained",
   "treatment [[videos]] encountered / We used [[placebo-controlled designs]] / the response rates by [[wave]] and condition / a few more demographic [[variables]] / Outcomes were [[assessed]] via telephone survey / Marjorie Taylor [[Greene]] / The results are [[shown]] in Figure C.7 / The entries in [[Table C.5]] / the basic [[pattern]] we obtained",
   "", "", NA_character_

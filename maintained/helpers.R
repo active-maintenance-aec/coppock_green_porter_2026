@@ -69,14 +69,16 @@ switching_points <- function() {
 # The two boxes on each panel: the share of Democrats (1-3) imagining themselves Republicans (5-7), and
 # the reverse. A panel carries only the out-party box its treatment could move, plus both under the status
 # quo: Democrats under pro-Democratic scenarios and Republicans under pro-Republican ones get none.
-switching_boxes <- function(points, ..., label_x = c(2, 6)) {
+# drop_pro_dem_box = FALSE keeps the Democrats' box under pro-Democratic scenarios, as the published
+# Figures C.10 and C.11 do; Figure 5 drops it.
+switching_boxes <- function(points, ..., label_x = c(2, 6), drop_pro_dem_box = TRUE) {
   offset <- 4 / 3
   points |>
     group_by(treatment, study, ...) |>
     summarise(d_to_r = 100 * mean(value[pid_7_pre %in% 1:3] %in% 5:7),
               r_to_d = 100 * mean(value[pid_7_pre %in% 5:7] %in% 1:3), .groups = "drop") |>
     pivot_longer(c(d_to_r, r_to_d), names_to = "direction", values_to = "estimate") |>
-    filter(!(direction == "d_to_r" & treatment == "Pro-Democratic hypotheticals"),
+    filter(!(drop_pro_dem_box & direction == "d_to_r" & treatment == "Pro-Democratic hypotheticals"),
            !(direction == "r_to_d" & treatment == "Pro-Republican hypotheticals")) |>
     mutate(center_x = if_else(direction == "d_to_r", 2, 6),
            center_y = if_else(direction == "d_to_r", 6, 2),

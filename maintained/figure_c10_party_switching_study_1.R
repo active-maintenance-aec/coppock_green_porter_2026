@@ -6,7 +6,7 @@
 source(here::here("maintained", "helpers.R"))
 
 gg_df <- switching_points() |> filter(study == "Study 1")
-squares_df <- switching_boxes(gg_df, hypothetical_label, label_x = c(2.25, 5.75))
+squares_df <- switching_boxes(gg_df, hypothetical_label, label_x = c(2.25, 5.75), drop_pro_dem_box = FALSE)
 
 g <- ggplot(gg_df, aes(pid_7_pre, value, color = avg_color)) +
   geom_point(position = position_sunflower(density = 8), size = 0.80, alpha = 0.6, stroke = 0) +

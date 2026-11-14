@@ -8,8 +8,25 @@
 source(here::here("maintained", "helpers.R"))
 
 studies <- list(`Study 1` = read_rds(here::here("original", "clean_hypotheticals_study_1.rds")),
-                `Study 2` = read_rds(here::here("original", "clean_hypotheticals_study_2.rds")))
+                `Study 2` = read_rds(here::here("original", "clean_hypotheticals_study_2.rds"))) |>
+  map(\(d) d |> mutate(batch_pre = as.character(batch_pre)))
 
+# Batch labels ----
+# Corrected: the deposit's cleaning scripts bind hyp_orig_i as the "Republican sample" and hyp_orig_r as the
+# "Independent sample", and pre-treatment party ID shows the reverse. The check below confirms the swap
+# before the labels are exchanged. The other scripts use batch_pre only as a factor covariate, where its
+# labels do not matter.
+republican_share <- studies |>
+  map_dbl(\(d) mean(d$pid_7_pre[d$batch_pre == "Independent sample"] %in% 5:7))
+print(republican_share)
+stopifnot(republican_share > 0.9)
+
+studies <- studies |>
+  map(\(d) d |> mutate(batch_pre = case_when(batch_pre == "Republican sample" ~ "Independent sample",
+                                             batch_pre == "Independent sample" ~ "Republican sample",
+                                             .default = batch_pre)))
+
+# Counts ----
 design_counts <- studies |>
   map(\(d) bind_rows(
     count(d, group = as.character(batch_pre)) |> mutate(count = "enrolled by batch"),
