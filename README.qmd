@@ -26,21 +26,21 @@ stopifnot(nrow(rebuilt) == 5)
 
 ## Summary
 
-`errata.qmd` lists 14 entries. Entries 5 and 6 are notes on coauthored claims that await the authors. The other 12 are corrections to the text, labels, one table, and the references. No public deposit was located, so the rerun rests on the authors' final replication archive, the 2025-12-29 zip in the local project folder. **A stranger cannot rerun this repository**, because `download_original.R` and `maintained/raw_to_clean.R` read that local folder. Raw exports hold IP addresses and coordinates and are never copied here. This repository has no independent rewrite, which falls short of Stage 3: every computed value comes from the deposit's own code and estimators, apart from the repaired one-sided test.
+`errata.qmd` lists 14 entries. Entries 5 and 6 are notes on coauthored claims that await the authors. The other 12 are corrections to the text, labels, one table, and the references. The rerun rests on the deposit at Harvard Dataverse, doi:10.7910/DVN/LBPTEK, which `download_original.R` fetches and checks file by file against `original_manifest.csv`. `run_all.R` reads nothing else, so anyone can rerun it. The one exception is `maintained/raw_to_clean.R`, which `run_all.R` does not call: it reads the raw exports in the authors' project folder, which hold IP addresses and coordinates and are not deposited. This repository has no independent rewrite, which falls short of Stage 3: every computed value comes from the deposit's own code and estimators, apart from the repaired one-sided test.
 
 ## What was run
 
-`maintained/run_archive.R` runs `r n_distinct(status$script)` scripts twice in scratch copies, records each run in `ground_truth/archive_run_status.csv`, and records the files each pass wrote in `ground_truth/archive_overwrites.csv`. Causes of the as-shipped failures, each shown by its log:
+`maintained/run_archive.R` runs `r n_distinct(status$script)` scripts twice in scratch copies, records each run in `ground_truth/archive_run_status.csv`, and records the files each pass wrote in `ground_truth/archive_overwrites.csv`. Every script exits 0 on both passes, as deposited and stripped. What the logs show:
 
 - `table_C5` writes to `../replication_archive/`. The first harness's scratch name caused that failure, so it was not an archive defect, and the scratch copy now has that name.
-- `figure_5`, `figure_7`, and `figure_C8` call `format_num` or `make_se_entry`, exported by `rdss`, without attaching `rdss`. They fail as shipped. This is an archive defect. The stripped pass attaches it, and `ggstance` too because `figure_C8` calls `position_dodgev`.
+- `figure_5`, `figure_7`, and `figure_C8` call `format_num` or `make_se_entry`, exported by `rdss`, and `figure_C8` calls `ggstance`'s `position_dodgev`. In the authors' archive none of the three attached those packages, so all three failed. The deposit adds both `library()` calls, and the three now run clean.
 - `figure_A4` logs an error and exits 0. The script's comment says such errors are caught and handled, and the error is inside its `try()` around bootstrap draws.
 
-The five shipped estimate files are rebuilt on the stripped pass, with a largest numeric difference below 6e-13. `r sum(rebuilt$matches_deposit)` of the five match the shipped files outright; the other `r sum(!rebuilt$matches_deposit)`, the two `hypotheticals_study` files, label the treatment "Pro-Democratic hypotheticals" where the shipped files read "Pro-Democrat hypotheticals". `maintained/raw_to_clean.R` rebuilds the four cleaned hypothetical files from the raw exports with no differing shared column (`maintained/output/raw_to_clean.csv`). That test does not reach the survey experiments or the field experiment, whose cleaned files are inputs here.
+The five shipped estimate files are rebuilt on the stripped pass, with a largest numeric difference below 6e-13. `r sum(rebuilt$matches_deposit)` of the five match the shipped files outright; the other `r sum(!rebuilt$matches_deposit)`, the two `hypotheticals_study` files, label the treatment "Pro-Democratic hypotheticals" where the shipped files read "Pro-Democrat hypotheticals". `maintained/raw_to_clean.R`, run by hand on the authors' raw exports, rebuilds the four cleaned hypothetical files with no differing shared column (`maintained/output/raw_to_clean.csv`). That test does not reach the survey experiments or the field experiment, whose cleaned files are inputs here.
 
 ## The deposit
 
-The replication archive is deposited at Harvard Dataverse, doi:10.7910/DVN/LBPTEK (in preparation). The deposited copy is the authors' final archive with identifying columns removed and two missing `library()` calls added to three scripts; its README lists the changes.
+The replication archive is deposited at Harvard Dataverse, doi:10.7910/DVN/LBPTEK, released 2026-11-12. The deposit is the authors' final archive of 2025-12-29 with six of its 39 files changed. `clean_field_experiments.rds` loses the voter-file identifier and the demographic, district, and household-size columns, and `clean_survey_experiments.rds` loses the survey start timestamps; no script reads any of them. `figure_5`, `figure_7`, and `figure_C8` gain `library(rdss)` and `library(ggstance)`. `README.txt` records those changes. The other 33 files are byte-identical to the archive.
 
 ## Checks and what they do not cover
 
@@ -57,4 +57,4 @@ The replication archive is deposited at Harvard Dataverse, doi:10.7910/DVN/LBPTE
 - The appendix prose was searched by known phrases and not read whole. The Table A.1 change made for the journal's replicator was not rechecked.
 - Study 4's added Table A.2 cells rest on a subtraction, since its `video_all` does not name the video.
 - The page proofs in `QJPS page proofs/` were not compared, so entry 13's hyphenation may be the typesetter's rather than the authors'.
-- Queue rows 13 to 15 and 65 are answered: entries 5 and 6 stay in note form, the archive is to be deposited, and row 65 names the columns that leave it first. The deposit itself is Alex's.
+- Queue rows 13 to 15 and 65 are answered: entries 5 and 6 stay in note form, the archive is deposited, and row 65 names the columns that left it first.

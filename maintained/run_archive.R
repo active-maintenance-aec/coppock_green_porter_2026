@@ -1,18 +1,14 @@
 # coppock_green_porter_2026/maintained/run_archive.R
 # Output: maintained/archive_run/ (gitignored), ground_truth/archive_run_status.csv,
 #   ground_truth/archive_overwrites.csv
-# Depends on: original_extracted/ (rebuilt by download_original.R)
-# Description: Run the archive's scripts twice in scratch copies, each script in a fresh R process: as
-#   shipped, and stripped of the five precomputed estimate files. The archive comments out most of the
+# Depends on: original/ (the Dataverse deposit, fetched by download_original.R)
+# Description: Run the deposit's scripts twice in scratch copies, each script in a fresh R process: as
+#   deposited, and stripped of the five precomputed estimate files. The deposit comments out most of the
 #   write_rds() calls that build those files, so the stripped copy restores those lines; a stripped run
-#   without them could not reach the figures. Data files stay, because the archive ships only cleaned
-#   data (maintained/raw_to_clean.R tests those). Set CGP_REUSE_ARCHIVE_RUN=TRUE to reuse a finished run.
-#   Two conditions were measured, not assumed. table_C5 writes to ../replication_archive/, so each scratch
-#   copy sits in a directory of that name. figure_5, figure_7, and figure_C8 call format_num or
-#   make_se_entry, exported by rdss, without attaching rdss, so they fail as shipped; the stripped pass
-#   attaches it in those three scripts, and the as_shipped pass leaves them failing. figure_C8 also calls
-#   ggstance's position_dodgev without attaching it (figure_7 gets it through coefplot), so the stripped pass
-#   attaches that as well. helpers.R is only ever sourced by the other scripts, so it gets no row.
+#   without them could not reach the figures. Data files stay, because the deposit ships only cleaned
+#   data. Set CGP_REUSE_ARCHIVE_RUN=TRUE to reuse a finished run. table_C5 writes to
+#   ../replication_archive/, so each scratch copy sits in a directory of that name. helpers.R is only ever
+#   sourced by the other scripts, so it gets no row.
 
 library(tidyverse)
 library(here)
@@ -21,7 +17,7 @@ here::i_am("maintained/run_archive.R")
 run_dir <- here::here("maintained", "archive_run")
 status_path <- here::here("ground_truth", "archive_run_status.csv")
 overwrites_path <- here::here("ground_truth", "archive_overwrites.csv")
-root <- here::here("original_extracted", "replication_archive")
+root <- here::here("original")
 
 # Every script is analysis: the archive ships cleaned data, and the two analyze_outcomes scripts
 # write the estimate files the figure scripts read.
@@ -39,10 +35,6 @@ scripts <- c("analyze_outcomes_study_1.R", "analyze_outcomes_study_2.R",
 stopifnot(all(file.exists(file.path(root, scripts))))
 precomputed <- c("ates_study_1.rds", "ates_study_2.rds", "hypotheticals_study_1.rds",
                  "hypotheticals_study_2.rds", "macropartisanship_estimates.rds")
-
-unattached_rdss <- c("figure_5_party_switching.R", "figure_7_meta_analysis_outcomes.R",
-                     "figure_C8_meta_analysis_hypotheticals.R")
-attach_rdss <- \(path) write_lines(c("library(rdss)", "library(ggstance)", read_lines(path)), path)
 
 restore_writes <- function(path) {
   lines <- read_lines(path)
@@ -78,7 +70,6 @@ run_pass <- function(pass) {
   if (pass == "stripped") {
     unlink(file.path(scratch, precomputed))
     walk(file.path(scratch, scripts), restore_writes)
-    walk(file.path(scratch, unattached_rdss), attach_rdss)
   }
   before <- checksums(scratch)
   status <- map(scripts, \(script) {

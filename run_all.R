@@ -1,8 +1,8 @@
 # coppock_green_porter_2026/run_all.R
 # Runs in order: verify the archive, rerun it twice in scratch copies (set CGP_REUSE_ARCHIVE_RUN=TRUE to reuse
 # a finished run), compute the page's values, render the errata, build and test the ground truth, and score
-# the prose claims. It needs Alex's local project folder, so a stranger cannot run it; raw_to_clean.R is run
-# by hand for the same reason.
+# the prose claims. It reads only the Dataverse deposit. maintained/raw_to_clean.R reads the authors' raw
+# exports, which are not deposited, so it is run by hand and not from here.
 
 library(here)
 here::i_am("run_all.R")

@@ -1,10 +1,11 @@
 # coppock_green_porter_2026/maintained/raw_to_clean.R
 # Output: maintained/output/raw_to_clean.csv, maintained/output/fielding_months.csv
-# Depends on: Alex's local project folder (archived_projects/coppock_green_porter_2026), never copied here
+# Depends on: Alex's local project folder (archived_projects/coppock_green_porter_2026), never copied here;
+#   original/ (the Dataverse deposit)
 # Description: Run the project's two cleaning scripts on the raw exports in a scratch copy outside this
-#   repo, compare their output with the archive's cleaned files, and count fielding months from the raw
-#   StartDate. The raw exports hold IP addresses and coordinates, so only column-free counts leave the
-#   scratch copy. A stranger cannot run this script.
+#   repo, compare their output with the deposit's cleaned files, and count fielding months from the raw
+#   StartDate. The raw exports hold IP addresses and coordinates and are not deposited, so only
+#   column-free counts leave the scratch copy, and run_all.R does not call this script.
 
 library(tidyverse)
 library(here)
@@ -22,7 +23,7 @@ file.copy(file.path(project, "code", scripts), file.path(scratch, "code"))
 file.create(file.path(scratch, ".here"))
 log_status <- map_int(scripts, \(s) withr::with_dir(scratch, suppressWarnings(system2("Rscript", shQuote(file.path("code", s)), stdout = FALSE, stderr = FALSE))))
 
-archive <- here::here("original_extracted", "replication_archive")
+archive <- here::here("original")
 compare <- function(file) {
   rebuilt_path <- file.path(scratch, "data", file)
   if (!file.exists(rebuilt_path)) return(tibble(file, rebuilt = FALSE, rows_rebuilt = NA_integer_, rows_archive = NA_integer_, shared_columns = NA_integer_, columns_differing = NA_integer_))

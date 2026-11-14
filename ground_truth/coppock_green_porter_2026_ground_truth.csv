@@ -1,8 +1,8 @@
 paper_id,claim_id,location,claim_type,claim,value_paper,digits,value_script,match,value_rewrite,match_rewrite,holds,defect_locus,disposition,disposition_reason,notes
-coppock_green_porter_2026,switch_treated,abstract,pipeline,percent imagining a switch under pro-out-party scenarios,12,0,NA,NA,11.999670860863128,TRUE,NA,NA,NA,NA,NA
-coppock_green_porter_2026,switch_status_quo,abstract,pipeline,percent imagining a switch under status quo,5,0,NA,NA,4.964138684747764,TRUE,NA,NA,NA,NA,NA
-coppock_green_porter_2026,switch_gap,"p. 26, p. 28, p. 40",pipeline,difference in percentage points,7.0,1,NA,NA,7.035532176115364,TRUE,NA,NA,NA,NA,NA
-coppock_green_porter_2026,switch_gap_se,"p. 26, p. 40",pipeline,standard error of the difference,1.5,1,NA,NA,1.468082724153685,TRUE,NA,NA,NA,NA,NA
+coppock_green_porter_2026,switch_treated,abstract,pipeline,percent imagining a switch under pro-out-party scenarios,12,0,NA,NA,11.999670860863136,TRUE,NA,NA,NA,NA,NA
+coppock_green_porter_2026,switch_status_quo,abstract,pipeline,percent imagining a switch under status quo,5,0,NA,NA,4.964138684747765,TRUE,NA,NA,NA,NA,NA
+coppock_green_porter_2026,switch_gap,"p. 26, p. 28, p. 40",pipeline,difference in percentage points,7.0,1,NA,NA,7.035532176115369,TRUE,NA,NA,NA,NA,NA
+coppock_green_porter_2026,switch_gap_se,"p. 26, p. 40",pipeline,standard error of the difference,1.5,1,NA,NA,1.4680827241536851,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,preview_rep,p. 28,pipeline,average pro-Republican effect,0.56,2,NA,NA,0.5593374507608847,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,preview_dem,p. 28,pipeline,average pro-Democratic effect,0.46,2,NA,NA,0.4640905748390057,TRUE,NA,NA,NA,NA,NA
 coppock_green_porter_2026,sd_pid,p. 29,pipeline,standard deviation of the seven-point scale,2,0,NA,NA,2.034999268099475,TRUE,NA,NA,NA,NA,NA
