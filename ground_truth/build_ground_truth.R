@@ -3,7 +3,7 @@
 # Depends on: ground_truth/published_claims.csv, errata_entries.csv, maintained/output/page_values.csv
 # Description: Compare the extracted prose values with the rerun at the page's precision, then halt on a
 #   mismatch the spine does not report, a spine id with no row, or a spine id on a claim that holds. The
-#   values come from the deposit's cleaned data, so a defect both inherit would pass; raw_to_clean.R tests
+#   values come from the deposit's cleaned data, so a defect both inherit would pass; maintained/output/raw_to_clean.csv tests
 #   the two hypothetical studies' cleaning only. No figure or table cell is in this gate. The archive's own
 #   printed values were not read back, so value_script and match are NA on every row.
 
