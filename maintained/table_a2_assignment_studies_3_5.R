@@ -10,7 +10,7 @@ five_studies <- read_rds(here::here("original", "clean_survey_experiments.rds"))
 
 # Table ----
 # Corrected: the deposit summed five of the six ad indicators, leaving out notaparty (Negative Partisanship),
-# so no row's cells reached dose times N (errata entry 11). The column is added before Placebo.
+# so no row's cells reached dose times N (errata entry 10). The column is added before Placebo.
 tab_assignment <- five_studies |>
   filter(study %in% c("study_3_dosage", "study_4_dosage", "study_5_dosage"), !is.na(dosage_factor)) |>
   summarise(n = n(), across(c(presidents, share_america, facts, guns, weare, notaparty, placebo), sum),

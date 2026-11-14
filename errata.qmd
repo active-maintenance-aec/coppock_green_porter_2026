@@ -30,7 +30,8 @@ democratic_third <- f("swing_03_09", 1)
 third_years <- str_c(value("third_from"), "–", value("third_to"))
 hypotheticals <- value("fig_2b_hypotheticals")
 stopifnot(hypotheticals == 6, value("s2_overall_below") == 2, value("s1_pro_dem_na") == 24, value("subgroup_significant") == 1)
-stopifnot(value("s2_eval_d_p") <= 0.025, value("s2_id_d_p") <= 0.025)
+stopifnot(value("s2_eval_d_p") <= 0.025, value("s2_id_d_p") <= 0.025, value("s2_eval_d_shipped") > 0.5, value("s2_id_d_shipped") > 0.5,
+          round(c(value("s2_eval_d"), value("s2_id_d")), 2) == 0.01, value("s2_eval_d_bh") == value("s2_id_d_bh"), value("s2_eval_d_bh") > 0.05)
 
 months <- read_csv(here("maintained", "output", "fielding_months.csv"), show_col_types = FALSE) |>
   mutate(study = if_else(str_detect(file, "orig"), "Study 1", "Study 2")) |> group_by(study, month) |> summarise(n = sum(n), .groups = "drop") |>
@@ -95,23 +96,15 @@ entries <- tribble(
   str_glue("The 10.7 subtracts two rounded values, and the difference itself is 10.77. The script's own search within 40 quarters returns the {third_years} fall, from 1997q3 to 2003q4, and it is larger than the second. The printed 1993–2002 span is a true difference between its two quarters and is not among the largest. The comparison the sentence supports is unchanged."),
   "swing_03_09;swing_third_republican", str_c(democratic_third, ";", third),
 
-  5, "description", "pipeline", "note",
-  "Two Study 2 index effects and the one-sided test",
+  5, "description", "pipeline", "full",
+  "Two Study 2 index effects",
   "p. 43, with the test on p. 39",
   "Figure 7 shows that in Study 2, the effects on these post-treatment outcomes were also null",
-  NA_character_,
-  str_glue("Recorded as a note, for the authors to rule on. Page 39 sets a one-sided cutoff of 0.025 in the pro-Democratic direction. The deposit's script applies the lower tail to every Pro-Democratic row, which is that direction for party ID (1 = Strong Democrat) and the opposite one for the two 0-1 indexes, where higher is more Democratic. Its Study 2 one-sided p-values on those indexes read {f('s2_eval_d_shipped')} and {f('s2_id_d_shipped')}. In the stated direction they are {f('s2_eval_d_p', 4)} (evaluation, {f('s2_eval_d')}, SE {f('s2_eval_d_se')}) and {f('s2_id_d_p', 4)} (identification, {f('s2_id_d')}, SE {f('s2_id_d_se')}), both below the cutoff. Neither survives correction across the 96 tests (Benjamini-Hochberg {f('s2_eval_d_bh')}), and the estimates are about 0.01 on a 0-1 scale. Party ID stays null. Figure 7's numbers are unchanged. Separately, the Study 1 script matches a label it has already renamed, so all {value('s1_pro_dem_na')} of its Pro-Democratic one-sided p-values are missing. With that repaired, the same page's \"one significant result\" among subgroups still holds, at {f('subgroup_p')}."),
+  str_glue("Figure 7 shows that in Study 2, the effects on these post-treatment outcomes were also null[[, save two pro-Democratic effects of about 0.01 on the 0-1 evaluation and identification indexes (one-sided p-values {f('s2_eval_d_p')} and {f('s2_id_d_p')}) that do not survive correction for multiple comparisons]]"),
+  str_glue("Page 39 tests pro-Democratic effects one-sided at 0.025 in the pro-Democratic direction. On party ID that direction is down (1 = Strong Democrat), and on the two indexes it is up. The deposit's script took the lower tail for every pro-Democratic estimate, so on the indexes it tested the wrong direction and reported {f('s2_eval_d_shipped')} and {f('s2_id_d_shipped')}. The estimates are {f('s2_eval_d')} (SE {f('s2_eval_d_se')}) on the evaluation index and {f('s2_id_d')} (SE {f('s2_id_d_se')}) on the identification index, and the Benjamini-Hochberg p-value across the 96 tests is {f('s2_eval_d_bh')} for both. Party ID stays null, and Figure 7, which prints no p-values, is unchanged. Separately, the Study 1 script matches a label it has already renamed, so all {value('s1_pro_dem_na')} of its Pro-Democratic one-sided p-values are missing. With that repaired, the same page's \"one significant result\" among subgroups still holds, at {f('subgroup_p')}."),
   "", NA_character_,
 
-  6, "description", "pipeline", "note",
-  "Near 100% power",
-  "p. 43",
-  "this, despite achieving near 100% power for the estimated effect sizes from Study 1",
-  NA_character_,
-  str_glue("Recorded as a note, for the authors to rule on. The pre-analysis plan's near-100% figure is a design-stage simulation under its own outcome model, which I did not rerun. Study 2's realized standard errors on party ID are {f('se_pid_d')} and {f('se_pid_r')}, which give about {f('power_d', 2)} and {f('power_r', 2)} power against 0.05 at the two-sided 0.05 level, the same as a one-sided 0.025 test up to a negligible tail. Page 33's \"to ensure near 100% power\" describes the design and is not in question."),
-  "", NA_character_,
-
-  7, "description", "authors_archive", "full",
+  6, "description", "authors_archive", "full",
   "The ANES year",
   "p. 34",
   "showed them the distribution of party ID as measured in the 2016 ANES",
@@ -119,7 +112,7 @@ entries <- tribble(
   "Both fielded instruments say \"In a 2022 survey\", and the appendix's Section C.1 reproduces that text and says \"in 2022\".",
   "", NA_character_,
 
-  8, "description", "authors_archive", "full",
+  7, "description", "authors_archive", "full",
   "When the scenarios were fielded",
   "p. 27",
   "In the spring of 2024, we asked participants",
@@ -127,7 +120,7 @@ entries <- tribble(
   "The raw exports' start dates put Study 1 in August 2023, apart from four interviews, and all of Study 2 in February 2024.",
   "", NA_character_,
 
-  9, "label", "reading", "brief",
+  8, "label", "reading", "brief",
   "Labels in Figure 2",
   "p. 37, Figure 2",
   "(a): 5 Pro-Status Quo Hypotheticals / 334 Independents enrolled / 327 Republicans enrolled. (b): 5 Pro-Democratic Hypotheticals / 5 Status Quo Hypotheticals / 5 Pro-Republican Hypotheticals / 1,016 Independents enrolled / 1,017 Republicans targeted and enrolled",
@@ -135,7 +128,7 @@ entries <- tribble(
   "Page 36 says Study 2 added a sixth scenario, and its data hold six. The cleaning scripts give the Republican recruitment batch the independents' label and the reverse: in both studies, more than nine in ten respondents in the batch the figure counts as independents place themselves at 5 to 7 before treatment. Only the labels change. The estimates use the batch as a covariate, where its name does not matter.",
   "", NA_character_,
 
-  10, "label", "pipeline", "brief",
+  9, "label", "pipeline", "brief",
   "Labels in Table B.3",
   "app. Table B.3, three rows",
   "Org 2 vs Org 2",
@@ -143,7 +136,7 @@ entries <- tribble(
   "The rows report the `Z:orgorg2` interaction, and line 222 of the field script mistypes the label. Only the label changes.",
   "", NA_character_,
 
-  11, "float", "pipeline", "brief",
+  10, "float", "pipeline", "brief",
   "A column missing from Table A.2",
   "app. Table A.2",
   "Charisma / Social Identity / Performance / Issues / Generic / Placebo",
@@ -151,7 +144,7 @@ entries <- tribble(
   "The table's script sums five video indicators, so the cells of each row do not reach dose times N. The twelfth ad, Negative Partisanship, is the sixth video in these studies. The added cells run down the table's nonzero doses. They are dose times N less the printed five, and the cleaned data's `notaparty` indicator sums to each of them. For Studies 3 and 5 they also equal the count of that video in `video_all`, which does not name it in Study 4. The printed cells stand.",
   "", NA_character_,
 
-  12, "float", "pipeline", "brief",
+  11, "float", "pipeline", "brief",
   "The naive intervals in Figure A.4",
   "app. Figure A.4",
   str_glue("Naive estimate (95% CI), e.g. Study 4: 6 Ads, {interval(widest$deposit_low, widest$deposit_high)}"),
@@ -159,17 +152,17 @@ entries <- tribble(
   str_glue("The bootstrap set each naive estimate's standard error to the spread of the lower bound's replicates rather than its own. From the same draws, the corrected intervals are {ratio_range[1]} to {ratio_range[2]} times as wide as the printed ones, and every interval still spans zero. The bounds and their intervals do not change."),
   "", NA_character_,
 
-  13, "wording", "reading", "brief", "Wording, main text", "pp. 34, 35, 38, 39, 44, and 45",
+  12, "wording", "reading", "brief", "Wording, main text", "pp. 34, 35, 38, 39, 44, and 45",
   "the fact that respondents snap back to their earlier partisan identity after the hypotheticals suggest / call up the National Guuard / Marjorie Taylor Green (twice) / For Republicans in this study, the Guns hypothetical / Goren and Chap, 2017 / ruminating on hypothetical scenarios, even those that respondents find plausible, are insufficient",
   "the fact that respondents snap back to their earlier partisan identity after the hypotheticals [[suggests]] / call up the National [[Guard]] / Marjorie Taylor [[Greene]] (twice) / For [[the pro-Republican hypotheticals]] in this study, the Guns hypothetical / Goren and [[Chapp]], 2017 / ruminating on hypothetical scenarios, even those that respondents find plausible, [[is]] insufficient",
   "The fielded instruments read Guard. Crossref gives the family name Chapp.", "", NA_character_,
 
-  14, "wording", "reading", "brief", "Wording, references", "pp. 46-48",
+  13, "wording", "reading", "brief", "Wording, references", "pp. 46-48",
   "“Short-term forces and partisan-ship” / “Where to place sensi-tive questions? / a field experiment with ffox nnews viewers / Goren, P. and Chap, C. / Petty, R.E., Cacioppo, J.T., Petty, R.E. and Cacioppo, J.T.",
   "“Short-term forces and [[partisanship]]” / “Where to place [[sensitive]] questions? / a field experiment with [[Fox News]] viewers / Goren, P. and [[Chapp]], C. / Petty, R.E.[[ and]] Cacioppo, J.T.",
   "", "", NA_character_,
 
-  15, "wording", "reading", "brief", "Wording, appendix", "app. Sections A to C",
+  14, "wording", "reading", "brief", "Wording, appendix", "app. Sections A to C",
   "treatment views encountered / We used a placebo-controlled designs / the response rates by save and condition / a few more demographic variable / Outcomes were assess via telephone survey / Marjorie Taylor-Green / The results are shows in Figure C.7 / The entries in TableC.5 / the basic patten we obtained",
   "treatment [[videos]] encountered / We used [[placebo-controlled designs]] / the response rates by [[wave]] and condition / a few more demographic [[variables]] / Outcomes were [[assessed]] via telephone survey / Marjorie Taylor [[Greene]] / The results are [[shown]] in Figure C.7 / The entries in [[Table C.5]] / the basic [[pattern]] we obtained",
   "", "", NA_character_
@@ -201,7 +194,7 @@ emit_entry <- function(n) {
 }
 ```
 
-This note lists corrections to "Americans can imagine changing partisan affiliation: evidence from hypothetical scenarios," published in the *Quarterly Journal of Political Science* 21(1): 26-48, doi [10.1108/QJPS-02-2025-0026](https://doi.org/10.1108/QJPS-02-2025-0026). Entries 5 and 6 are notes on claims the authors have yet to rule on, and they carry no corrected text. No other entry changes a conclusion of the article. Bold marks each change. Passages separated by a slash are separate sentences or labels. The analysis is in the repository `coppock_green_porter_2026`.
+This note lists corrections to "Americans can imagine changing partisan affiliation: evidence from hypothetical scenarios," published in the *Quarterly Journal of Political Science* 21(1): 26-48, doi [10.1108/QJPS-02-2025-0026](https://doi.org/10.1108/QJPS-02-2025-0026). Entry 5 qualifies a reported null result, and no entry changes a conclusion of the article. Bold marks each change. Passages separated by a slash are separate sentences or labels. The analysis is in the repository `coppock_green_porter_2026`.
 
 ```{r article-entries, results="asis"}
 walk(entries$entry, emit_entry)

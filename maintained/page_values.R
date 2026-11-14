@@ -135,16 +135,13 @@ subgroup <- ates |> filter(pid_7_factor_pre != "Overall")
 lone <- subgroup |> filter(p_repaired <= 0.025)
 stopifnot(nrow(lone) == 1, lone$study == "s1", as.character(lone$pid_7_factor_pre) == "Not very strong Republican")
 s1_indexes <- ates |> filter(study == "s1", is_index, pid_7_factor_pre == "Overall")
-se_pid_2 <- overall("s2", "pid_7_post", TRUE)$std.error; se_pid_2r <- overall("s2", "pid_7_post", FALSE)$std.error
-power_at <- \(se) pnorm(0.05 / se - qnorm(0.975)) + pnorm(-0.05 / se - qnorm(0.975))
 put(post_d = pid_d$estimate, post_d_se = pid_d$std.error, post_r = pid_r$estimate, post_r_se = pid_r$std.error,
     subgroup_significant = nrow(lone), subgroup_p = lone$p_repaired, subgroup_bh = lone$p_bh,
     s1_index_largest = 100 * max(abs(s1_indexes$estimate)),
     s2_eval_d = eval_d$estimate, s2_eval_d_se = eval_d$std.error, s2_eval_d_p = eval_d$p_repaired, s2_eval_d_shipped = eval_d$p.value_alt, s2_eval_d_bh = eval_d$p_bh,
     s2_id_d = id_d$estimate, s2_id_d_se = id_d$std.error, s2_id_d_p = id_d$p_repaired, s2_id_d_shipped = id_d$p.value_alt, s2_id_d_bh = id_d$p_bh,
     s2_overall_below = sum(ates$p_repaired[ates$study == "s2" & ates$pid_7_factor_pre == "Overall"] <= 0.025),
-    s1_pro_dem_na = sum(is.na(ates$p.value_alt[ates$study == "s1" & ates$pro_dem])),
-    power_d = power_at(se_pid_2), power_r = power_at(se_pid_2r), se_pid_d = se_pid_2, se_pid_r = se_pid_2r)
+    s1_pro_dem_na = sum(is.na(ates$p.value_alt[ates$study == "s1" & ates$pro_dem])))
 
 # Macropartisanship ----
 mp <- estimates_file("estimates_macropartisanship.csv") |> filter(hypothetical_label == "Overall")

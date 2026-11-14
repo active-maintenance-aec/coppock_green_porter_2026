@@ -17,7 +17,7 @@ contrasts <- tribble(
   "Independent vs Democrat", c("Democrat", "Independent"), "Z + org + Z * pid_3_pre_nona", "Z:pid_3_pre_nonaIndependent",
   "Republican vs Democrat", c("Democrat", "Republican"), "Z + org + Z * pid_3_pre_nona", "Z:pid_3_pre_nonaRepublican",
   "Republican vs Independent", c("Independent", "Republican"), "Z + org + Z * pid_3_pre_nona", "Z:pid_3_pre_nonaRepublican",
-  # The deposit labels this row "Org 2 vs Org 2" (errata entry 10); the term is Z:orgorg2.
+  # The deposit labels this row "Org 2 vs Org 2" (errata entry 9); the term is Z:orgorg2.
   "Org 2 vs Org 1", c("Democrat", "Independent", "Republican", "Unknown"), "Z + pid_3_pre_nona + org + org * Z", "Z:orgorg2"
 )
 stopifnot(all(field$pid_3_pre_nona %in% contrasts$parties[[4]]))

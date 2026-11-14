@@ -15,13 +15,11 @@ version.
 
 ## Summary
 
-`errata.qmd` lists 15 entries. Entries 5 and 6 are notes on coauthored
-claims that await the authors. The other 13 are corrections to the text,
-labels, one table, one figure, and the references. The rerun rests on
-the deposit at Harvard Dataverse, doi:10.7910/DVN/LBPTEK, which
-`download_original.R` fetches and checks file by file against
-`original_manifest.csv`. `run_all.R` reads nothing else, so anyone can
-rerun it.
+`errata.qmd` lists 14 entries, all corrections: to the text, labels, one
+table, one figure, and the references. The rerun rests on the deposit at
+Harvard Dataverse, doi:10.7910/DVN/LBPTEK, which `download_original.R`
+fetches and checks file by file against `original_manifest.csv`.
+`run_all.R` reads nothing else, so anyone can rerun it.
 
 `maintained/` rewrites the analysis in 21 scripts, one per published
 figure or table, each run in its own R process on the deposit’s cleaned
@@ -32,17 +30,17 @@ hypothetical and post-treatment estimates agree to 1e-16 on all 272
 rows, and the macropartisanship point estimates are identical, while
 their bootstrap standard errors run 0.98 to 1.06 times the deposit’s
 because the draws are new. The rewrite corrects what errata entries 2,
-5, 9, 10, 11, and 12 describe in the code: the Study 1 bootstrap’s
-sample size, the one-sided test’s direction, Figure 2’s swapped
-Republican and Independent batch labels, Table B.3’s comparison label,
-Table A.2’s missing column, and Figure A.4’s naive standard errors,
-where the deposit reused the lower bound’s, which narrows those
-intervals by up to 23% without moving any across zero. Study 1’s
-deposited 995-row file is the right one: the published Figure 7 and the
-article’s 988 come from an earlier file that dropped two completed
-interviews as if they were header rows (entry 2). `page_values.csv` is
-computed from the rewrite’s estimates, and reads the archive only for
-the deposit’s shipped one-sided p.
+5, 8, 9, 10, and 11 describe in the code: the Study 1 bootstrap’s sample
+size, the one-sided test’s direction, Figure 2’s swapped Republican and
+Independent batch labels, Table B.3’s comparison label, Table A.2’s
+missing column, and Figure A.4’s naive standard errors, where the
+deposit reused the lower bound’s, which narrows those intervals by up to
+23% without moving any across zero. Study 1’s deposited 995-row file is
+the right one: the published Figure 7 and the article’s 988 come from an
+earlier file that dropped two completed interviews as if they were
+header rows (entry 2). `page_values.csv` is computed from the rewrite’s
+estimates, and reads the archive only for the deposit’s shipped
+one-sided p.
 
 ## What was run
 
@@ -74,7 +72,7 @@ and coordinates and are not deposited, so the script that wrote them is
 not in this repository. Run on those exports, the project’s two cleaning
 scripts rebuild the four cleaned hypothetical files with no differing
 shared column (`raw_to_clean.csv`), and the exports’ start dates give
-the fielding months entry 8 uses (`fielding_months.csv`). That test does
+the fielding months entry 7 uses (`fielding_months.csv`). That test does
 not reach the survey experiments or the field experiment, whose cleaned
 files are inputs here.
 
@@ -124,10 +122,11 @@ changes. The other 33 files are byte-identical to the archive.
 - The appendix prose was searched by known phrases and not read whole.
   The Table A.1 change made for the journal’s replicator was not
   rechecked.
-- Study 4’s added Table A.2 cells rest on a subtraction, since its
-  `video_all` does not name the video.
+- Study 4’s added Table A.2 cells are checked against the `notaparty`
+  indicator alone, since its `video_all` does not name the video.
 - The page proofs in `QJPS page proofs/` were not compared, so entry
   13’s hyphenation may be the typesetter’s rather than the authors’.
-- Queue rows 13 to 15 and 65 are answered: entries 5 and 6 stay in note
-  form, the archive is deposited, and row 65 names the columns that left
-  it first.
+- Queue rows 13 to 15 and 65 are answered. Entry 5 is now a correction.
+  The p. 43 power claim stands, because it is true of the design as
+  planned. The archive is deposited, and row 65 names the columns that
+  left it first.
